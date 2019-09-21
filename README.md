@@ -9,12 +9,16 @@
 [Bootstrap 文档](https://v3.bootcss.com/components/#navbar-buttons)
 [Spring Boot 中文文档](https://www.springcloud.cc/spring-boot.html#_learning_about_spring_boot_features)  
 [Spring 官方文档2.0.0.RC1 版](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/)
-
+[Flyway 文档](https://flywaydb.org/documentation/database/mysql)(根据使用的数据库来查看相关文档)
+[Flyway Maven 配置](https://flywaydb.org/getstarted/firststeps/maven)
 
 ## 工具
 [GIt](https://git-scm.com/downloads)  
 [visual-paradigm](https://online.visual-paradigm.com/cn/)  
 [H2 数据库](https://www.h2database.com/html/quickstart.html)(发现不是很好用，就换了 MySQL)
+[Flyway 数据库版本管理工具](https://flywaydb.org/)
+
+
 
 ## 数据库脚本
 ```sql
@@ -28,4 +32,11 @@ create table user
 	gmt_create bigint null,
 	gmt_modified bigint null
 );
+```
+
+
+## 脚本
+```bash
+# 更新数据库命令
+mvn flyway:migrate
 ```
