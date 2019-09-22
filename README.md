@@ -12,6 +12,9 @@
 [Flyway 文档](https://flywaydb.org/documentation/database/mysql)(根据使用的数据库来查看相关文档)  
 [Flyway Maven 配置](https://flywaydb.org/getstarted/firststeps/maven)  
 [Lombok Maven 配置说明](https://projectlombok.org/setup/maven)(不同 IDE 有不同的使用说明，IDEA 除了引入依赖还要安装 Lombok 插件)  
+[Thymeleaf 文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
+
+
 
 ## 工具
 [GIt](https://git-scm.com/downloads)  
