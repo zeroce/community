@@ -22,14 +22,16 @@ public class IndexController {
                         @RequestParam(name = "name", required = false, defaultValue = "world") String name,
                         Model model) {
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie: cookies) {
-            if (cookie.getName().equals("token")) {
-                String token = cookie.getValue();
-                User user = userMapper.findByToken(token);
-                if (null != user) {
-                    request.getSession().setAttribute("user", user);
+        if (null != cookies && cookies.length != 0 ) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    User user = userMapper.findByToken(token);
+                    if (null != user) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
             }
         }
         return "index";

@@ -1,1 +1,0 @@
-alter table homework1.user add birth varchar(50) null;
