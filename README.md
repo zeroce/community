@@ -15,13 +15,12 @@
 [Thymeleaf 文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
 
 
-
 ## 工具
 [GIt](https://git-scm.com/downloads)  
-[visual-paradigm](https://online.visual-paradigm.com/cn/)  
+[visual-paradigm](https://online.visual-paradigm.com/cn/)(主要用于画一些时序图、ER、UML等等，当然功能还有很多)  
 [H2 数据库](https://www.h2database.com/html/quickstart.html)(发现不是很好用，就换了 MySQL)  
 [Flyway 数据库版本管理工具](https://flywaydb.org/)  
-[Lombok 开发效率工具](https://projectlombok.org/)  
+[Lombok 开发效率工具](https://projectlombok.org/)(用过你就知道)  
 
 
 ## 数据库脚本
@@ -44,3 +43,13 @@ create table user
 # 更新数据库命令
 mvn flyway:migrate
 ```
+
+---
+
+## 首页帖子分页过程（2019.09.23 16:16）
+1. 首页传递两个参数： `page`--页码，`size`--一页容量,分页数据量。  
+2. 将 `page` 和 `size` 传递到 `QuestionService`。  
+3. 通过 `QuestionMapper` 取到数据总数（总共有多少条数据）。  
+4. 根据数据总数和 `size` 计算页码数和分页位置，以及是否显示 上/下一页，第一页/最尾页 等参数。  
+5. 将查询、计算得到的所有参数和结果封装成 `PaginationDTO` 对象，传回给前端页面。  
+6. 在页面中调用 `Model` 注入的 `PaginationDTO` 属性，*Bootstrap* 的分页样式和 *Thymeleaf* 标签完成分页显示。  

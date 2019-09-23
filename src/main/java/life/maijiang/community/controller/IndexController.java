@@ -1,6 +1,7 @@
 package life.maijiang.community.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import life.maijiang.community.dto.PaginationDTO;
 import life.maijiang.community.dto.QuestionDTO;
 import life.maijiang.community.mapper.QuestionMapper;
 import life.maijiang.community.mapper.UserMapper;
@@ -27,7 +28,9 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(HttpServletRequest request,
-                        Model model) {
+                        Model model,
+                        @RequestParam(name = "page", defaultValue = "1") Integer page,
+                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
         Cookie[] cookies = request.getCookies();
         if (null != cookies && cookies.length != 0 ) {
             for (Cookie cookie : cookies) {
@@ -42,10 +45,8 @@ public class IndexController {
             }
         }
 
-
-        List<QuestionDTO> questionList = questionService.list();
-        model.addAttribute("questionList", questionList);
-
+        PaginationDTO pagination = questionService.list(page, size);
+        model.addAttribute("pagination", pagination);
         return "index";
     }
 }
