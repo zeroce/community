@@ -3,11 +3,11 @@
 <head>
     <title>麻将社区 -- 1.0</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="css/community.css">
-    <script type="application/javascript" src="js/jquery.min.js"></script>
-    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/community.css">
+    <script type="application/javascript" src="/js/jquery.min.js"></script>
+    <script type="application/javascript" src="/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -24,8 +24,10 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}">zeroce 喜爱的 saber</h4>
-                    <span th:text="${question.description}">最喜爱Saber了~~</span>
+                    <h4 class="media-heading">
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                    </h4>
+                    <span th:text="${question.description}"></span>
                     <span class="text-desc">
                         <span th:text="${question.commentCount}"></span> 个回复 • <span
                             th:text="${question.viewCount}"></span> 次浏览 • 发布时间 <span
@@ -36,12 +38,12 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li th:if="${pagination.showFirstPage}">
-                        <a href="/index?page=1" aria-label="Previous">
+                        <a th:href="@{/index(page=${1})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showPrevious}">
-                        <a href="#" th:href="@{index(page=${pagination.page - 1})}" aria-label="Previous">
+                        <a th:href="@{/index(page=${pagination.page - 1})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
@@ -49,11 +51,11 @@
                         <a th:href="@{/index(page=${page})}" th:text="${page}"></a>
                     </li>
                     <li th:if="${pagination.showNext}">
-                        <a href="#" th:href="@{index(page=${pagination.page + 1})}" aria-label="Next">
+                        <a th:href="@{/index(page=${pagination.page + 1})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     <li th:if="${pagination.showEndPage}">
-                        <a th:href="@{index(page=${pagination.totalPage})}" aria-label="Next">
+                        <a th:href="@{/index(page=${pagination.totalPage})}" aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
