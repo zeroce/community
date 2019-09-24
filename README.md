@@ -36,6 +36,7 @@ create table user
 	gmt_modified bigint null
 );
 ```
+其他的数据库脚本在 `db/migration` 目录中。可惜这个 *Flyway* 社区版不能使用 `Nx__` 之类的更改删除功能。  
 
 
 ## 脚本
@@ -53,3 +54,11 @@ mvn flyway:migrate
 4. 根据数据总数和 `size` 计算页码数和分页位置，以及是否显示 上/下一页，第一页/最尾页 等参数。  
 5. 将查询、计算得到的所有参数和结果封装成 `PaginationDTO` 对象，传回给前端页面。  
 6. 在页面中调用 `Model` 注入的 `PaginationDTO` 属性，*Bootstrap* 的分页样式和 *Thymeleaf* 标签完成分页显示。  
+
+
+## 个人帖子板块发现的问题（2019.09.24）
+1. 数据库表的设计有问题，*question* 库表 `creator` 应该关联 *user* 库表的 `account_id` ，而不是 `id`。  
+2. 登录并记录的功能设计有问题，暂时还没想到怎么修复。  
+3. 帖子的查询方式有问题（修改了库表之后课可正常工作）。  
+接下去要找个时间修复登录并记录的功能。  
+

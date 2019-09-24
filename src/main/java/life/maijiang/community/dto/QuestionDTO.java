@@ -15,5 +15,6 @@ public class QuestionDTO {
     private Integer commentCount;
     private Integer viewCount;
     private Integer likeCount;
+    private String creatorAccount;
     private User user;
 }
