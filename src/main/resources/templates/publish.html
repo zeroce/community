@@ -3,11 +3,12 @@
 <head>
     <title>发布 -- 1.0</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="css/community.css">
-    <script type="application/javascript" src="js/jquery.min.js"></script>
-    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/community.css">
+    <script type="application/javascript" src="/js/jquery.min.js"></script>
+    <script type="application/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="/js/wangEditor.min.js"></script>
 
 </head>
 <body>
@@ -18,6 +19,7 @@
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发起 </h2>
             <hr>
             <form action="/publish" method="post">
+                <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）：</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="问题标题......"
@@ -25,8 +27,29 @@
                 </div>
                 <div class="form-group">
                     <label for="title">问题补充（必填，请参照右侧提示）：</label>
-                    <textarea class="form-control" name="description" id="description" th:text="${description}"
-                              cols="30" rows="10"></textarea>
+                    <!--<textarea class="form-control" name="description" id="description" th:text="${description}"
+                              cols="30" rows="10"></textarea>-->
+                    <div>
+                        <div id="editor" th:text="${description}"></div>
+                        <textarea id="description" style="width:100%; height:200px; display: none" class="form-control" name="description"
+                                  cols="30" rows="10"></textarea>
+                        <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+                        <script type="text/javascript">
+                            var E = window.wangEditor;
+                            var editor = new E('#editor');
+                            var $text1 = $('#description');
+
+                            // 或者 var editor = new E( document.getElementById('editor') )
+                            editor.customConfig.onchange = function (html) {
+                                // 监控变化，同步更新到 textarea
+                                $text1.val(html)
+                            };
+                            editor.create();
+                            editor.text.clear();
+                            $text1.val(editor.txt.html());
+                            editor.text.append();
+                        </script>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="title">添加标签：</label>

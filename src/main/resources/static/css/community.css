@@ -27,3 +27,15 @@ body {
     color: #999;
     font-size: 13px;
 }
+.editor .editor-toolbar {
+    border: 1px solid #ccc;
+    border-top: none;
+    height: 300px;
+    z-index: 10000;
+}
+.editor .editor-container {
+    border: 1px solid #ccc;
+    border-top: none;
+    height: 300px;
+    z-index: 10000;
+}
