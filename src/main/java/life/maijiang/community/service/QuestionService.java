@@ -4,6 +4,7 @@ import life.maijiang.community.dto.PaginationDTO;
 import life.maijiang.community.dto.QuestionDTO;
 import life.maijiang.community.exception.CustomizeErrorCode;
 import life.maijiang.community.exception.CustomizeException;
+import life.maijiang.community.mapper.QuestionExtMapper;
 import life.maijiang.community.mapper.QuestionMapper;
 import life.maijiang.community.mapper.UserMapper;
 import life.maijiang.community.model.Question;
@@ -22,6 +23,9 @@ public class QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -136,4 +140,10 @@ public class QuestionService {
         }
     }
 
+    public void increaseView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
+    }
 }

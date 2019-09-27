@@ -1,7 +1,6 @@
 package life.maijiang.community.controller;
 
 import life.maijiang.community.dto.QuestionDTO;
-import life.maijiang.community.mapper.QuestionMapper;
 import life.maijiang.community.model.User;
 import life.maijiang.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,16 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * 问题详情
+     * @param id
+     * @param request
+     * @param model
+     * @return
+     */
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name = "id") Integer id,
                            HttpServletRequest request,
-                           HttpServletResponse response,
                            Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
         model.addAttribute("question", questionDTO);
@@ -32,6 +37,9 @@ public class QuestionController {
         } else {
             request.getSession().setAttribute("userAccountId", null);
         }
+        // 累加阅读数
+        questionService.increaseView(id);
+
         return "question";
     }
 }
