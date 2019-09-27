@@ -39,3 +39,6 @@ body {
     height: 300px;
     z-index: 10000;
 }
+.jumbotron {
+    margin: 50px;
+}

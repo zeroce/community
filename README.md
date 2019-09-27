@@ -1,6 +1,7 @@
 ## 跟着麻将社区做的项目源码
 没什么，想看源码可以去 github 上的 community 仓库。
 
+
 ## 资料
 [Spring 指导](https://spring.io/guides)  
 [Spring Thymeleaf 文档](https://spring.io/guides/gs/serving-web-content/)  
@@ -15,6 +16,7 @@
 [Thymeleaf 文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
 [Mybatis Generator Core 文档](http://mybatis.org/generator/configreference/javaClientGenerator.html)
 [mybatis-spring-boot-starter 文档](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
+
 
 ## 工具
 [GIt](https://git-scm.com/downloads)  
