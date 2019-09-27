@@ -13,7 +13,8 @@
 [Flyway Maven 配置](https://flywaydb.org/getstarted/firststeps/maven)  
 [Lombok Maven 配置说明](https://projectlombok.org/setup/maven)(不同 IDE 有不同的使用说明，IDEA 除了引入依赖还要安装 Lombok 插件)  
 [Thymeleaf 文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
-
+[Mybatis Generator Core 文档](http://mybatis.org/generator/configreference/javaClientGenerator.html)
+[mybatis-spring-boot-starter 文档](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
 
 ## 工具
 [GIt](https://git-scm.com/downloads)  
@@ -44,6 +45,12 @@ create table user
 # 更新数据库命令
 mvn flyway:migrate
 ```
+```maven
+# Mybatis Generator plugin 执行命令
+mvn mybatis-generator:generate
+# 举例，中间可加参数配置
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```
 
 ---
 
@@ -68,4 +75,17 @@ mvn flyway:migrate
 
 ## wangEditor -- 富文本编辑器引入问题（2019.09.25）
 尝试引入wangEditor代替输入框，看起来稍微有那么一点样子，但是不知道怎么整 container 的属性，尝试了一下，网页的标签好像去不掉。。。。  
-问题多多。
+问题多多。  
+
+
+## 关于资源文件加载问题(2019.09.26)
+报错：Error resolving template [index], template might not exist ......  
+解决方案：在 `pom.xml` 中添加 `<resources>` 标签，配置资源文件路径（就是 `resources` 目录下的所有文件）。  
+参考文章：[Springboot+thymeleaf+mybatis 报Error resolving template [index], template might not exist的异常](https://blog.csdn.net/fengzyf/article/details/83341479)  
+
+
+## 关于引入 `Mybatis Generator` 产生的其中一个问题 -- 重复映射(2019.09.26)
+报错信息：The alias 'xxxx' is already mapped to the value 'xxxxxx'  
+debug 报错信息：The alias 'GeneratedCriteria' is already mapped to the value 'xxxxxx'  
+解决方案：将 `mybatis-spring-boot-starter` 的版本改为 2.0.0 或者 2.1.0。  
+具体原因看讨论：https://github.com/mybatis/generator/issues/461  
