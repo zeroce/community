@@ -26,6 +26,6 @@
     -->
     update question
     set view_count = view_count + #{viewCount,jdbcType=INTEGER}
-    where id = #{id,jdbcType=IMTEGER}
+    where id = #{id}
   </update>
 </mapper>

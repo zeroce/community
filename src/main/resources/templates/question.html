@@ -24,6 +24,10 @@
             </span>
             <hr>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
+            <hr>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            </div>
             <br>
             <hr>
             <a th:href="@{'/publish/'+${question.id}}" class="community-menu" th:if="${question.user.accountId == #request.session.getAttribute('userAccountId')}">
