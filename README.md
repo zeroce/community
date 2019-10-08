@@ -91,3 +91,8 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 debug 报错信息：The alias 'GeneratedCriteria' is already mapped to the value 'xxxxxx'  
 解决方案：将 `mybatis-spring-boot-starter` 的版本改为 2.0.0 或者 2.1.0。  
 具体原因看讨论：https://github.com/mybatis/generator/issues/461  
+
+
+## 关于评论功能的实现 -- 1 -- 前后端分离（2019-09-28）
+先稍微写了一点后台的处理逻辑，前台页面还没有设计，PostMan 插件我也暂时没法下载，等过段时间能下载就来测试一下，现在也暂时只能这样了。  
+
