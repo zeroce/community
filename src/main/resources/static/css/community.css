@@ -11,9 +11,23 @@ body {
     float: right;
     margin-bottom: 15px;
 }
+.btn-comment {
+    float: right;
+    width: 100px;
+    height: 40px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.comment-main {
+
+}
 .img-size {
-    width: 43px;
-    height: 43px;
+    width: 64px;
+    height: 64px;
+}
+.img-size-head {
+    width: 52px;
+    height: 52px;
 }
 .text-desc {
     font-size: 12px;

@@ -32,7 +32,6 @@ public class QuestionService {
 
     /**
      * 分页查询帖子
-     *
      * @param page
      * @param size
      * @return
@@ -64,7 +63,6 @@ public class QuestionService {
 
     /**
      * 个人分页查询帖子
-     *
      * @param userAccountId
      * @param page
      * @param size
@@ -101,7 +99,6 @@ public class QuestionService {
 
     /**
      * 问题详情
-     *
      * @param id
      * @return
      */
@@ -117,6 +114,10 @@ public class QuestionService {
         return questionDTO;
     }
 
+    /**
+     * 问题帖子保存更新
+     * @param question
+     */
     public void createOrUpdate(Question question) {
         if (null == question.getId()) {
             // 创建帖子
@@ -144,6 +145,10 @@ public class QuestionService {
         }
     }
 
+    /**
+     * 浏览次数计算
+     * @param id
+     */
     public void increaseView(Long id) {
         Question question = new Question();
         question.setId(id);
