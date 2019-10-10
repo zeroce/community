@@ -1,6 +1,6 @@
 package life.maijiang.community.controller;
 
-import life.maijiang.community.dto.CommentDTO;
+import life.maijiang.community.dto.CommentCreateDTO;
 import life.maijiang.community.dto.ResultDTO;
 import life.maijiang.community.exception.CustomizeErrorCode;
 import life.maijiang.community.model.Comment;
@@ -23,22 +23,22 @@ public class CommentController {
 
     /**
      * 评论记录
-     * @param commentDTO
+     * @param commentCreateDTO
      * @param request
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
-    public Object post(@RequestBody CommentDTO commentDTO,
+    public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
                        HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         if (null == user) {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
         Comment comment = new Comment();
-        comment.setParentId(commentDTO.getParentId());
-        comment.setType(commentDTO.getType());
-        comment.setContent(commentDTO.getContent());
+        comment.setParentId(commentCreateDTO.getParentId());
+        comment.setType(commentCreateDTO.getType());
+        comment.setContent(commentCreateDTO.getContent());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(System.currentTimeMillis());
         comment.setCommentator(user.getAccountId());

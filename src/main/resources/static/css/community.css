@@ -18,16 +18,31 @@ body {
     margin-bottom: 10px;
     margin-top: 10px;
 }
-.comment-main {
-
+.comment-sp {
+    margin-top: 0;
+}
+.comment-menu {
+    color: #999;
+    margin-top: 8px;
+}
+.comment-menu .glyphicon-style {
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.comment-menu .glyphicon-style:hover {
+    color: #499ef3;
+}
+.div-sp {
+    margin-top: 50px;
 }
 .img-size {
     width: 64px;
     height: 64px;
 }
 .img-size-head {
-    width: 52px;
-    height: 52px;
+    width: 40px;
+    height: 40px;
 }
 .text-desc {
     font-size: 12px;

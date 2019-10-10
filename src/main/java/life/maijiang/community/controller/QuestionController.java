@@ -1,7 +1,9 @@
 package life.maijiang.community.controller;
 
+import life.maijiang.community.dto.CommentDTO;
 import life.maijiang.community.dto.QuestionDTO;
 import life.maijiang.community.model.User;
+import life.maijiang.community.service.CommentService;
 import life.maijiang.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,13 +12,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private CommentService commentService;
 
     /**
      * 问题详情
@@ -30,7 +35,10 @@ public class QuestionController {
                            HttpServletRequest request,
                            Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
+        List<CommentDTO> comments = commentService.listByQuestionId(id);
+
         model.addAttribute("question", questionDTO);
+        model.addAttribute("comments", comments);
         User user = (User) request.getSession().getAttribute("user");
         if (null != user) {
             request.getSession().setAttribute("userAccountId", user.getAccountId());
@@ -39,7 +47,6 @@ public class QuestionController {
         }
         // 累加阅读数
         questionService.increaseView(id);
-
         return "question";
     }
 }

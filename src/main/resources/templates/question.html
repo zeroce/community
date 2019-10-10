@@ -17,7 +17,8 @@
 <div class="container-fluid main profile">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <!--问题详情-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3><span th:text="${question.title}"></span></h3>
                 <span class="text-desc">
                 <span th:text="${question.viewCount}"></span>
@@ -36,7 +37,36 @@
                     </span>编辑
                 </a>
             </div>
+
+            <!--回复数-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4><span th:text="${question.commentCount}"></span> 个回复</h4>
+                <hr class="comment-sp">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="comment : ${comments}">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object img-rounded img-size-head" th:src="${comment.user.avatarUrl}">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <div th:text="${comment.user.name}"></div>
+                            <div th:text="${comment.content}"></div>
+                            <div class="comment-menu">
+                                <span class="glyphicon glyphicon-thumbs-up glyphicon-style"></span>
+                                <span class="glyphicon glyphicon-thumbs-down glyphicon-style"></span>
+                                <span class="glyphicon glyphicon-comment glyphicon-style"></span>
+                                <span style="float: right"
+                                      th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                            </div>
+                        </div>
+                        <hr class="comment-menu">
+                    </div>
+                </div>
+            </div>
+
+            <!--回复输入文本框-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-sp">
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
