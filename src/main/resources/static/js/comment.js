@@ -1,4 +1,8 @@
 function postComment() {
+    if (!$("#comment").val()) {
+        alert("想回复可不能啥话都不说吖(⊙o⊙)~~");
+        return;
+    }
     $.ajax({
         type: "POST",
         url: "/comment",
@@ -10,7 +14,7 @@ function postComment() {
         }),
         success: function (response) {
             if (response.code == 200) {
-
+                window.location.reload();
             } else {
                 if (response.code == 2003) {
                     if (confirm(response.message)) {
