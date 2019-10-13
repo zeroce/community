@@ -4,7 +4,7 @@ public enum CommentTypeEnum {
     QUESTION(1),
     COMMENT(2);
 
-    private int type;
+    private Integer type;
 
     CommentTypeEnum(int type) {
         this.type = type;

@@ -56,7 +56,7 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 
 ---
 
-## 首页帖子分页过程（2019.09.23 16:16）
+### 首页帖子分页过程（2019.09.23 16:16）
 1. 首页传递两个参数： `page`--页码，`size`--一页容量,分页数据量。  
 2. 将 `page` 和 `size` 传递到 `QuestionService`。  
 3. 通过 `QuestionMapper` 取到数据总数（总共有多少条数据）。  
@@ -65,38 +65,43 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 6. 在页面中调用 `Model` 注入的 `PaginationDTO` 属性，*Bootstrap* 的分页样式和 *Thymeleaf* 标签完成分页显示。  
 
 
-## 个人帖子板块发现的问题（2019.09.24）
+### 个人帖子板块发现的问题（2019.09.24）
 1. 数据库表的设计有问题，*question* 库表 `creator` 应该关联 *user* 库表的 `account_id` ，而不是 `id`。  
 2. 登录并记录的功能设计有问题，暂时还没想到怎么修复。  
 3. 帖子的查询方式有问题（修改了库表之后课可正常工作）。  
 接下去要找个时间修复登录并记录的功能。  
 
 
-## 拦截器源码阅读 -- 静态资源加载问题（还没看懂。。。）
+### 拦截器源码阅读 -- 静态资源加载问题（还没看懂。。。）
 
 
-## wangEditor -- 富文本编辑器引入问题（2019.09.25）
+### wangEditor -- 富文本编辑器引入问题（2019.09.25）
 尝试引入wangEditor代替输入框，看起来稍微有那么一点样子，但是不知道怎么整 container 的属性，尝试了一下，网页的标签好像去不掉。。。。  
 问题多多。  
 
 
-## 关于资源文件加载问题(2019.09.26)
+### 关于资源文件加载问题(2019.09.26)
 报错：Error resolving template [index], template might not exist ......  
 解决方案：在 `pom.xml` 中添加 `<resources>` 标签，配置资源文件路径（就是 `resources` 目录下的所有文件）。  
 参考文章：[Springboot+thymeleaf+mybatis 报Error resolving template [index], template might not exist的异常](https://blog.csdn.net/fengzyf/article/details/83341479)  
 
 
-## 关于引入 `Mybatis Generator` 产生的其中一个问题 -- 重复映射(2019.09.26)
+### 关于引入 `Mybatis Generator` 产生的其中一个问题 -- 重复映射(2019.09.26)
 报错信息：The alias 'xxxx' is already mapped to the value 'xxxxxx'  
 debug 报错信息：The alias 'GeneratedCriteria' is already mapped to the value 'xxxxxx'  
 解决方案：将 `mybatis-spring-boot-starter` 的版本改为 2.0.0 或者 2.1.0。  
 具体原因看讨论：https://github.com/mybatis/generator/issues/461  
 
 
-## 关于评论功能的实现 -- 1 -- 前后端分离（2019-09-28）
+### 关于评论功能的实现 -- 1 -- 前后端分离（2019-09-28）
 先稍微写了一点后台的处理逻辑，前台页面还没有设计，PostMan 插件我也暂时没法下载，等过段时间能下载就来测试一下，现在也暂时只能这样了。  
 
 
-## 关于评论功能的实现 -- 1 -- 前后端分离（2019-10-10）
+### 关于评论功能的实现 -- 1 -- 前后端分离（2019-10-10）
 经过几天的努力总算能用上 Postman，不断尝试后成功完成数据的接收返回，页面的一级评论也做好了，还没有做提交回复的一级评论异步刷新。  
-Postman 在模拟请求的时候，如果需要检验登录状态的话，需要在 Cookie 中添加响应的 JSESSIONID 的值。（或者其他的键值）
+Postman 在模拟请求的时候，如果需要检验登录状态的话，需要在 Cookie 中添加响应的 JSESSIONID 的值。（或者其他的键值）  
+
+### 关于评论功能 -- 2 -- 二级评论（2019-10-13）
+二级评论主要是分步做，先将基本的页面效果绘出来，再根据一级评论的评论ID，找到所有 parentId 为 ID 的评论数据，返回到页面。  
+现在刚刚将添加二级评论的样式写好，看起来也有点丑。。。。  
+

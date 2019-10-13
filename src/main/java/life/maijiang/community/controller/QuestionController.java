@@ -2,6 +2,7 @@ package life.maijiang.community.controller;
 
 import life.maijiang.community.dto.CommentDTO;
 import life.maijiang.community.dto.QuestionDTO;
+import life.maijiang.community.enums.CommentTypeEnum;
 import life.maijiang.community.model.User;
 import life.maijiang.community.service.CommentService;
 import life.maijiang.community.service.QuestionService;
@@ -35,7 +36,7 @@ public class QuestionController {
                            HttpServletRequest request,
                            Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
-        List<CommentDTO> comments = commentService.listByQuestionId(id);
+        List<CommentDTO> comments = commentService.listByQuestionId(id, CommentTypeEnum.QUESTION);
 
         model.addAttribute("question", questionDTO);
         model.addAttribute("comments", comments);

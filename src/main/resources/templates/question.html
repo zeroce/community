@@ -16,6 +16,7 @@
 <div th:insert="navigation :: nav"></div>
 <div class="container-fluid main profile">
     <div class="row">
+        <!--左边栏-->
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <!--问题详情-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -49,15 +50,39 @@
                                 <img class="media-object img-rounded img-size-head" th:src="${comment.user.avatarUrl}">
                             </a>
                         </div>
-                        <div class="media-body">
+                        <div class="media-body" th:id="${'comment-body-'+comment.id}">
                             <div th:text="${comment.user.name}"></div>
                             <div th:text="${comment.content}"></div>
                             <div class="comment-menu">
                                 <span class="glyphicon glyphicon-thumbs-up glyphicon-style"></span>
                                 <span class="glyphicon glyphicon-thumbs-down glyphicon-style"></span>
-                                <span class="glyphicon glyphicon-comment glyphicon-style"></span>
-                                <span style="float: right"
-                                      th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                                <span class="glyphicon glyphicon-comment glyphicon-style" th:data-id="${comment.id}" th onclick="collapseComments(this)"></span>
+                                <span class="comment-time" th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                            </div>
+                            <!--二级评论-->
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comments" th:id="${'comment-' + comment.id}">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="comment : ${comments}">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <img class="media-object img-rounded img-size-head" th:src="${comment.user.avatarUrl}">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="media-heading">
+                                                <a href="#"> <span th:text="${comment.user.name}"></span> </a> | <span th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                                                <span class="comment-float" th:data-id="${comment.id}" th:text="回复"></span>
+                                            </div>
+                                            <div th:text="${comment.content}"></div>
+                                        </div>
+                                        <hr class="comment-second-menu">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="评论一下..." th:id="${'input-' + comment.id}">
+                                    <button type="button" class="btn btn-default btn-comment" onclick="collapseSecondComments()">取消</button>
+                                    <button type="button" class="btn btn-success btn-comment" th:data-id="${comment.id}" onclick="comment(this)">评论</button>
+                                </div>
                             </div>
                         </div>
                         <hr class="comment-menu">
@@ -109,9 +134,11 @@
             </div>
             <input type="hidden" th:value="${question.id}" id="questionId">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <button class="btn btn-success btn-publish btn-comment" onclick="postComment()">回复</button>
+                <button class="btn btn-success btn-publish" onclick="postComment()">回复</button>
             </div>
         </div>
+
+        <!--右边栏-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h5 style="margin-top: 40px">发起人</h5>

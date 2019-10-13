@@ -7,26 +7,46 @@ body {
     margin-left: 90px;
     margin-right: 90px;
 }
+.alert-comment {
+    float: left;
+}
 .btn-publish {
     float: right;
-}
-.btn-comment {
     width: 100px;
     height: 40px;
-    margin-bottom: 10px;
     margin-top: 10px;
+    margin-bottom: 10px;
+}
+.btn-comment {
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.comment-float {
+    float: right;
 }
 .comment-sp {
     margin-top: 0;
+}
+.comment-time {
+    float: right;
 }
 .comment-menu {
     color: #999;
     margin-top: 8px;
 }
+.comment-second-menu {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .comment-menu .glyphicon-style {
     margin-right: 10px;
     font-size: 20px;
     cursor: pointer;
+}
+.comment-menu .active {
+    color: #499ef3;
 }
 .comment-menu .glyphicon-style:hover {
     color: #499ef3;
@@ -41,6 +61,12 @@ body {
 .img-size-head {
     width: 40px;
     height: 40px;
+}
+.sub-comments {
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding-top: 15px;
 }
 .text-desc {
     font-size: 12px;
