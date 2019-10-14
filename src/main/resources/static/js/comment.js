@@ -62,27 +62,58 @@ function collapseComments(e) {
     if (e.classList.contains("active")) {
         e.classList.remove("active");
     } else {
-        $.getJSON( "/comment/" + id, function( data ) {
-            var commentBodyId = $("#comment-body-" + id);
-            var items = [];
-            commentBodyId.append(
-                $("<div/>", {
-                    "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comments",
-                    "id": "comment-id-" + id,
-                    html: items.join("")
-                })
-            ),
-            $.each(data.data, function(comment) {
-                var c = $("<div/>", {
-                    "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12 sub-comments",
-                    html: comment.content
+        e.classList.add("active");
+        var subCommentContainer = $("#comment-" + id);
+        if (subCommentContainer.children().length == 1) {
+
+            $.getJSON("/comment/" + id, function (data) {
+                $.each(data.data, function (index, comment) {
+                    var mediaLeftElement = $("<div/>", {
+                        "class": "media-left"
+                    }).append($("<a/>", {
+                        "href": "#"
+                    }).append($("<img/>", {
+                        "class": "media-object img-rounded img-size-head",
+                        "src": comment.user.avatarUrl
+                    })));
+
+                    var mediabodyElement = $("<div/>", {
+                        "class": "media-body"
+                    }).append($("<div/>", {
+                        "class": "media-heading"
+                    }).append($("<a/>", {
+                        "href": "#"
+                    }).append($("<span/>", {
+                        "text": comment.user.name
+                    }))).append($("<span/>", {
+                        "text": " | " + dayjs(comment.gmtCreate).format("YYYY-MM-DD")
+                    })).append($("<a/>",{
+                        "href": "#"
+                    }).append(
+                        $("<span/>", {
+                        "class": "comment-float",
+                        "text": "回复",
+                        "data-id": comment.id
+                    })))).append($("<div/>", {
+                        "text": comment.content
+                    }));
+
+                    var mediaElement = $("<div>", {
+                      "class": "media"
+                    }).append(mediaLeftElement)
+                        .append(mediabodyElement)
+                        .append($("<hr/>", {
+                            "class": "comment-second-menu"
+                        }));
+
+                    var commentElement = $("<div/>", {
+                        "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+                    }).append(mediaElement);
+                    subCommentContainer.prepend(commentElement);
                 });
-                items.push(c);
 
             });
-
-        });
-        e.classList.add("active");
+        }
         console.info(id);
     }
 }
