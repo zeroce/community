@@ -7,6 +7,12 @@ body {
     margin-left: 90px;
     margin-right: 90px;
 }
+.a-sp-up {
+    margin-top: 10px;
+}
+.a-sp-down {
+    margin-bottom: 10px;
+}
 .alert-comment {
     float: left;
 }
@@ -51,8 +57,23 @@ body {
 .comment-menu .glyphicon-style:hover {
     color: #499ef3;
 }
-.div-sp {
-    margin-top: 50px;
+.div-sp-up {
+    margin-top: 30px;
+}
+.div-sp-down {
+    margin-bottom: 30px;
+}
+.div-sp-left {
+    margin-left: 20px;
+}
+.div-sp-right {
+    margin-right: 20px;
+}
+.hr-sp-up {
+    margin-top: 10px;
+}
+.hr-sp-down {
+    margin-bottom: 10px;
 }
 .img-size {
     width: 64px;
@@ -61,6 +82,18 @@ body {
 .img-size-head {
     width: 40px;
     height: 40px;
+}
+.question-related {
+    line-height: 20px;
+    font-size: 12px;
+    list-style: none;
+    padding-left: 0;
+}
+.span-sp-left {
+    margin-left: 10px;
+}
+.span-sp-right {
+    margin-right: 10px;
 }
 .sub-comments {
     border-radius: 5px;

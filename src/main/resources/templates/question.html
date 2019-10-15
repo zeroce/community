@@ -10,8 +10,9 @@
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/wangEditor.min.js"></script>
     <script type="application/javascript" src="/js/comment.js"></script>
-<!--    <script src="https://unpkg.com/dayjs"></script>-->
+    <!--    <script src="https://unpkg.com/dayjs"></script>-->
     <script type="application/javascript" src="/js/dayjs.js"></script>
+    <script type="application/javascript" src="/js/question.js"></script>
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -28,11 +29,21 @@
                     | 发布时间：<span th:text="${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
                     | 浏览次数：<span th:text="${question.viewCount}"></span>
                 </span>
-                <hr>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
-                <hr>
+                <hr class="hr-sp-up hr-sp-down">
+                <span id="questionDescription" style="display: none" th:text="${question.description}"></span>
+                <div id="description" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <script type="application/javascript">
+                        $('#description').html($('#questionDescription').text());
+                    </script>
+                </div>
                 <br>
-                <hr>
+                <hr class="hr-sp-down">
+                <span class="label label-info span-sp-right" th:each="tag : ${question.tag.split(',')}">
+                    <span class="glyphicon glyphicon-tags"></span>
+                    <span th:text="${tag}"></span>
+                </span>
+                <br>
+                <hr class="hr-sp-up hr-sp-down">
                 <a th:href="@{'/publish/'+${question.id}}" class="community-menu"
                    th:if="${question.user.accountId == #request.session.getAttribute('userAccountId')}">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true">
@@ -41,7 +52,7 @@
             </div>
 
             <!--回复数-->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-sp-up">
                 <h4><span th:text="${question.commentCount}"></span> 个回复</h4>
                 <hr class="comment-sp">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="comment : ${comments}">
@@ -61,34 +72,21 @@
                                       th:data-id="${comment.id}"
                                       th:text="${comment.commentedCount}"
                                       onclick="collapseComments(this)"></span>
-                                <span class="comment-time" th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                                <span class="comment-time"
+                                      th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
                             </div>
                             <!--二级评论-->
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comments" th:id="${'comment-' + comment.id}">
-
-                                <!--
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="comment : ${comments}">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img class="media-object img-rounded img-size-head" th:src="${comment.user.avatarUrl}">
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="media-heading">
-                                                <a href="#"> <span th:text="${comment.user.name}"></span> </a> | <span th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
-                                                <span class="comment-float" th:data-id="${comment.id}" th:text="回复"></span>
-                                            </div>
-                                            <div th:text="${comment.content}"></div>
-                                        </div>
-                                        <hr class="comment-second-menu">
-                                    </div>
-                                </div>
-                                -->
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comments"
+                                 th:id="${'comment-' + comment.id}">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <input type="text" class="form-control" placeholder="评论一下..." th:id="${'input-' + comment.id}">
-                                    <button type="button" class="btn btn-default btn-comment" onclick="collapseSecondComments()">取消</button>
-                                    <button type="button" class="btn btn-success btn-comment" th:data-id="${comment.id}" onclick="comment(this)">评论</button>
+                                    <input type="text" class="form-control" placeholder="评论一下..."
+                                           th:id="${'input-' + comment.id}">
+                                    <button type="button" class="btn btn-default btn-comment"
+                                            onclick="collapseSecondComments()">取消
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-comment" th:data-id="${comment.id}"
+                                            onclick="comment(this)">评论
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +96,7 @@
             </div>
 
             <!--回复输入文本框-->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-sp">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-sp-up">
                 <h4>提交回复</h4>
                 <hr class="comment-sp">
                 <div class="media">
@@ -148,7 +146,7 @@
         <!--右边栏-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h5 style="margin-top: 40px">发起人</h5>
+                <h4 class="hr-sp-up">发起人</h4>
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
@@ -166,7 +164,11 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>相关问题</h4>
-
+                <ul class="question-related">
+                    <li th:each="relatedQuestion : ${relatedQuestions}">
+                        <a th:href="@{'/question/' + ${relatedQuestion.id}}" th:text="${relatedQuestion.title}"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

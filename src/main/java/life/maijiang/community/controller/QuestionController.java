@@ -36,18 +36,20 @@ public class QuestionController {
                            HttpServletRequest request,
                            Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
+        List<QuestionDTO> relatedQuestions = questionService.selectByRelatedTag(questionDTO);
         List<CommentDTO> comments = commentService.listByQuestionId(id, CommentTypeEnum.QUESTION);
+        // 累加阅读数
+        questionService.increaseView(id);
 
         model.addAttribute("question", questionDTO);
         model.addAttribute("comments", comments);
+        model.addAttribute("relatedQuestions", relatedQuestions);
         User user = (User) request.getSession().getAttribute("user");
         if (null != user) {
             request.getSession().setAttribute("userAccountId", user.getAccountId());
         } else {
             request.getSession().setAttribute("userAccountId", null);
         }
-        // 累加阅读数
-        questionService.increaseView(id);
         return "question";
     }
 }
