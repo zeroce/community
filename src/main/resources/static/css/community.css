@@ -69,6 +69,9 @@ body {
 .div-sp-right {
     margin-right: 20px;
 }
+.form-group .div-sp-up-list {
+    margin-top: 10px;
+}
 .hr-sp-up {
     margin-top: 10px;
 }
@@ -94,6 +97,17 @@ body {
 }
 .span-sp-right {
     margin-right: 10px;
+}
+.span-sp-up {
+    margin-top: 10px;
+}
+.span-sp-down {
+    margin-bottom: 10px;
+}
+.span-sp-up .span-style {
+    white-space: normal;
+    margin: 5px 5px;
+    display: inline-block;
 }
 .sub-comments {
     border-radius: 5px;

@@ -9,6 +9,7 @@
     <script type="application/javascript" src="/js/jquery.min.js"></script>
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/wangEditor.min.js"></script>
+    <script type="application/javascript" src="/js/publish.js"></script>
 
 </head>
 <script type="application/javascript">
@@ -44,7 +45,7 @@
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）：</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="问题标题......"
-                           th:value="${title}">
+                           th:value="${title}" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="title">问题补充（必填，请参照右侧提示）：</label>
@@ -73,14 +74,42 @@
                         </script>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="title">添加标签：</label>
+                <div id="questionTag" class="form-group">
+                    <label for="tag">添加标签：</label>
                     <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以 ， 隔开"
-                           th:value="${tag}">
+                           th:value="${tag}" autocomplete="off">
+                    <div id="selectTagList" class="span-sp-up">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class=""
+                                th:each="selectCatagory, selectCatagoryStat : ${tags}"
+                                th:class="${selectCatagoryStat.first ? 'active' : ''}">
+                                <a th:href="${'#' + selectCatagory.catagoryName}"
+                                   th:aria-controls="${selectCatagory.catagoryName}" role="tab"
+                                   data-toggle="tab"
+                                   th:text="${selectCatagory.catagoryName}"></a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" th:each="selectCatagory, selectCatagoryStat : ${tags}"
+                                 th:id="${selectCatagory.catagoryName}"
+                                 th:class="${selectCatagoryStat.first ? 'active tab-pane span-sp-up' : 'tab-pane span-sp-up'}">
+                                <span class="label label-info span-sp-right span-style"
+                                      th:each="selectTag : ${selectCatagory.tags}">
+                                    <span class="glyphicon glyphicon-tag"
+                                          th:data-tag="${selectTag}"
+                                          th:text="${' ' + selectTag}"
+                                          onclick="selectTag(this)"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div id="errorAndCommitBtn">
                     <span id="error" name="error" class="alert alert-danger alert-comment" th:text="${error}"
-                         th:if="${error != null}"></span>
+                          th:if="${error != null}"></span>
                     <span>
                         <button type="submit" class="btn btn-success btn-publish btn-comment">发布问题</button>
                     </span>
@@ -102,3 +131,35 @@
 </div>
 </body>
 </html>
+<script type="application/javascript">
+    $('#tag').click(function () {
+        $("#selectTagList").show();
+    });
+    $(document).bind("click", function (e) {
+        if ($(e.target).is('#questionTag') || $(e.target).is('#')) {
+            return;
+        } else {
+            if ($('#questionTag #selectTagList').css("display") == "block") {
+                $('#questionTag #selectTagList').hide();
+            }
+            return false;
+        }
+    });
+    // $('#questionTag').click(function () {
+    //     $('#questionTag #selectTagList').hide();
+    // })
+    // $(document).click(function () {
+    //     $('#selectTagList').hide();
+    // });
+    // $('#selectTagList').click(function (event) {
+    //     event.stopPropagation();
+    // });
+    // $(document).ready(function () {
+    //     $('#questionTag').focus(function () {
+    //         $('#selectTagList').toggle();
+    //         return false;
+    //     });
+    // })
+
+
+</script>

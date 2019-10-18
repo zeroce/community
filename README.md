@@ -81,7 +81,6 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 
 
 ### 关于资源文件加载问题(2019.09.26)
-报错：Error resolving template [index], template might not exist ......  
 解决方案：在 `pom.xml` 中添加 `<resources>` 标签，配置资源文件路径（就是 `resources` 目录下的所有文件）。  
 参考文章：[Springboot+thymeleaf+mybatis 报Error resolving template [index], template might not exist的异常](https://blog.csdn.net/fengzyf/article/details/83341479)  
 
@@ -104,4 +103,8 @@ Postman 在模拟请求的时候，如果需要检验登录状态的话，需要
 ### 关于评论功能 -- 2 -- 二级评论（2019-10-13）
 二级评论主要是分步做，先将基本的页面效果绘出来，再根据一级评论的评论ID，找到所有 parentId 为 ID 的评论数据，返回到页面。  
 现在刚刚将添加二级评论的样式写好，看起来也有点丑。。。。  
+
+### 关于评论功能 -- 3 -- 二级评论（2019-10-15）
+已经将评论的样式和功能都做好，还顺便添加了帖子详情页的相关问题推荐；有点羞耻的把QQ二维码放到 index 上。。。。。。暂时没使用到别的什么工具。  
+
 
