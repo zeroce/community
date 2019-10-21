@@ -1,7 +1,6 @@
 ## 跟着麻将社区做的项目源码
 没什么，想看源码可以去 github 上的 community 仓库。
 
-
 ## 资料
 [Spring 指导](https://spring.io/guides)  
 [Spring Thymeleaf 文档](https://spring.io/guides/gs/serving-web-content/)  
@@ -17,14 +16,12 @@
 [Mybatis Generator Core 文档](http://mybatis.org/generator/configreference/javaClientGenerator.html)
 [mybatis-spring-boot-starter 文档](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
 
-
 ## 工具
 [GIt](https://git-scm.com/downloads)  
 [visual-paradigm](https://online.visual-paradigm.com/cn/)(主要用于画一些时序图、ER、UML等等，当然功能还有很多)  
 [H2 数据库](https://www.h2database.com/html/quickstart.html)(发现不是很好用，就换了 MySQL)  
 [Flyway 数据库版本管理工具](https://flywaydb.org/)  
 [Lombok 开发效率工具](https://projectlombok.org/)(用过你就知道)  
-
 
 ## 数据库脚本
 ```sql
@@ -40,7 +37,6 @@ create table user
 );
 ```
 其他的数据库脚本在 `db/migration` 目录中。可惜这个 *Flyway* 社区版不能使用 `Nx__` 之类的更改删除功能。  
-
 
 ## 脚本
 ```bash
@@ -64,26 +60,21 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 5. 将查询、计算得到的所有参数和结果封装成 `PaginationDTO` 对象，传回给前端页面。  
 6. 在页面中调用 `Model` 注入的 `PaginationDTO` 属性，*Bootstrap* 的分页样式和 *Thymeleaf* 标签完成分页显示。  
 
-
 ### 个人帖子板块发现的问题（2019.09.24）
 1. 数据库表的设计有问题，*question* 库表 `creator` 应该关联 *user* 库表的 `account_id` ，而不是 `id`。  
 2. 登录并记录的功能设计有问题，暂时还没想到怎么修复。  
 3. 帖子的查询方式有问题（修改了库表之后课可正常工作）。  
 接下去要找个时间修复登录并记录的功能。  
 
-
 ### 拦截器源码阅读 -- 静态资源加载问题（还没看懂。。。）
-
 
 ### wangEditor -- 富文本编辑器引入问题（2019.09.25）
 尝试引入wangEditor代替输入框，看起来稍微有那么一点样子，但是不知道怎么整 container 的属性，尝试了一下，网页的标签好像去不掉。。。。  
 问题多多。  
 
-
 ### 关于资源文件加载问题(2019.09.26)
 解决方案：在 `pom.xml` 中添加 `<resources>` 标签，配置资源文件路径（就是 `resources` 目录下的所有文件）。  
 参考文章：[Springboot+thymeleaf+mybatis 报Error resolving template [index], template might not exist的异常](https://blog.csdn.net/fengzyf/article/details/83341479)  
-
 
 ### 关于引入 `Mybatis Generator` 产生的其中一个问题 -- 重复映射(2019.09.26)
 报错信息：The alias 'xxxx' is already mapped to the value 'xxxxxx'  
@@ -91,10 +82,8 @@ debug 报错信息：The alias 'GeneratedCriteria' is already mapped to the valu
 解决方案：将 `mybatis-spring-boot-starter` 的版本改为 2.0.0 或者 2.1.0。  
 具体原因看讨论：https://github.com/mybatis/generator/issues/461  
 
-
 ### 关于评论功能的实现 -- 1 -- 前后端分离（2019-09-28）
 先稍微写了一点后台的处理逻辑，前台页面还没有设计，PostMan 插件我也暂时没法下载，等过段时间能下载就来测试一下，现在也暂时只能这样了。  
-
 
 ### 关于评论功能的实现 -- 1 -- 前后端分离（2019-10-10）
 经过几天的努力总算能用上 Postman，不断尝试后成功完成数据的接收返回，页面的一级评论也做好了，还没有做提交回复的一级评论异步刷新。  
@@ -107,4 +96,23 @@ Postman 在模拟请求的时候，如果需要检验登录状态的话，需要
 ### 关于评论功能 -- 3 -- 二级评论（2019-10-15）
 已经将评论的样式和功能都做好，还顺便添加了帖子详情页的相关问题推荐；有点羞耻的把QQ二维码放到 index 上。。。。。。暂时没使用到别的什么工具。  
 
+### 关于标签库 -- 1 -- 简单标签库（2019-10-18）
+目前的标签库是直接就复制[思否社区](https://segmentfault.com/)上提问给的标签库，按理说上面是动态的，可以自建新标签，我这里暂时没实现哈，而且，也没有把标签全部存起来。  
+之后会找时间完善基本的标签库功能。  
+
+### 关于社区消息通知功能 -- 1 -- （2019-10-18）
+调整了一下导航栏的图标，新建一个表作为消息通知的库 *notification*。接下来会完善这个消息通知功能。  
+
+### 关于社区消息通知功能 -- 2 -- （2019-10-21）
+使用社区产品的用户，经常会见到各种各样的消息功能。消息通知功能的设计就是为了让用户得到该有的反馈，提高用户的交互体验。  
+1. 在导航栏定义一个通知图标作为UI设计，点击通知图标则跳转到消息列表页面。
+2. 在消息列表页面，每条消息主要记录 消息发起人、消息接收人、消息主题、消息目标、消息发起时间、消息已/未读状态 几个元素。
+3. 点击消息目标可跳转到消息发生的地点，并将未读状态去掉，最新消息数相应减少。
+4. 消息的主要业务是问题回复、评论回复、问题点赞等（暂时就前两个）。  
+
+1. 问题回复的主要修改：    
+- 回复问题时同时获取相应的消息信息，封装成 `NotificationDTO` 保存到 `notification` 表中。  
+1. 评论回复的主要修改：
+- 回复评论同时获取相应的消息信息，封装成 `NotificationDTO` 保存到 `notification` 表中。
+1. 未读状态根据 `notification` 表中 `status == 0` 和 `notitier_name == userAccountId` 计数。
 

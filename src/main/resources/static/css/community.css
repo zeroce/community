@@ -57,6 +57,11 @@ body {
 .comment-menu .glyphicon-style:hover {
     color: #499ef3;
 }
+.community-menu {
+    color: #999;
+    font-size: 13px;
+}
+
 .div-sp-up {
     margin-top: 30px;
 }
@@ -68,6 +73,18 @@ body {
 }
 .div-sp-right {
     margin-right: 20px;
+}
+.editor .editor-toolbar {
+    border: 1px solid #ccc;
+    border-top: none;
+    height: 300px;
+    z-index: 10000;
+}
+.editor .editor-container {
+    border: 1px solid #ccc;
+    border-top: none;
+    height: 300px;
+    z-index: 10000;
 }
 .form-group .div-sp-up-list {
     margin-top: 10px;
@@ -85,6 +102,23 @@ body {
 .img-size-head {
     width: 40px;
     height: 40px;
+}
+.input-width-long {
+    width: 300px;
+}
+.jumbotron {
+    margin: 50px;
+}
+.navigation-glyphicon {
+    font-size: 25px;
+    color: #abbfd6;
+}
+.navigation-img-size {
+    width: 25px;
+    height: 25px;
+}
+.profile .section {
+    margin-top: 32px;
 }
 .question-related {
     line-height: 20px;
@@ -119,26 +153,4 @@ body {
     font-size: 12px;
     font-weight: normal;
     color: #999;
-}
-.profile .section {
-    margin-top: 32px;
-}
-.community-menu {
-    color: #999;
-    font-size: 13px;
-}
-.editor .editor-toolbar {
-    border: 1px solid #ccc;
-    border-top: none;
-    height: 300px;
-    z-index: 10000;
-}
-.editor .editor-container {
-    border: 1px solid #ccc;
-    border-top: none;
-    height: 300px;
-    z-index: 10000;
-}
-.jumbotron {
-    margin: 50px;
 }

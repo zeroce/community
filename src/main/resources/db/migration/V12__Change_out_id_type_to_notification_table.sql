@@ -1,0 +1,1 @@
+alter table notification modify outer_id varchar(100) null;
