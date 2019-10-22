@@ -14,7 +14,7 @@
 [Lombok Maven 配置说明](https://projectlombok.org/setup/maven)(不同 IDE 有不同的使用说明，IDEA 除了引入依赖还要安装 Lombok 插件)  
 [Thymeleaf 文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
 [Mybatis Generator Core 文档](http://mybatis.org/generator/configreference/javaClientGenerator.html)
-[mybatis-spring-boot-starter 文档](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
+[mybatis-spring-boot-starter 文档](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)  
 
 ## 工具
 [GIt](https://git-scm.com/downloads)  
@@ -22,6 +22,10 @@
 [H2 数据库](https://www.h2database.com/html/quickstart.html)(发现不是很好用，就换了 MySQL)  
 [Flyway 数据库版本管理工具](https://flywaydb.org/)  
 [Lombok 开发效率工具](https://projectlombok.org/)(用过你就知道)  
+[WangEditor 富文本编辑器官网](http://www.wangeditor.com/)
+[WangEditor 富文本编辑器 github 项目地址](https://github.com/wangfupeng1988/wangEditor/)
+[Editormd Markdown编辑器 github 项目地址](https://github.com/pandao/editor.md)
+[Editormd 编辑器官网](http://editor.md.ipandao.com/)
 
 ## 数据库脚本
 ```sql
@@ -69,7 +73,7 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ### 拦截器源码阅读 -- 静态资源加载问题（还没看懂。。。）
 
 ### wangEditor -- 富文本编辑器引入问题（2019.09.25）
-尝试引入wangEditor代替输入框，看起来稍微有那么一点样子，但是不知道怎么整 container 的属性，尝试了一下，网页的标签好像去不掉。。。。  
+尝试引入 *wangEditor* 代替输入框，看起来稍微有那么一点样子，但是不知道怎么整 container 的属性，尝试了一下，网页的标签好像去不掉。。。。  
 问题多多。  
 
 ### 关于资源文件加载问题(2019.09.26)
@@ -116,3 +120,6 @@ Postman 在模拟请求的时候，如果需要检验登录状态的话，需要
 - 回复评论同时获取相应的消息信息，封装成 `NotificationDTO` 保存到 `notification` 表中。
 1. 未读状态根据 `notification` 表中 `status == 0` 和 `notitier_name == userAccountId` 计数。
 
+### Editormd -- 引入 Markdown 编辑器代替 wangEditor（2019-10-22）
+之前引入 *wangEditor* 来丰富编辑器，现在引入 Editormd 来增加使用体验。项目本身在 **Github** 上有持续维护（现在），但是在码云上貌似很久没更新了（不过影响不大）。地址已经放在上面了。  
+Editormd 编辑器的文档还是挺容易读的。  

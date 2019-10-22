@@ -6,10 +6,14 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="/css/community.css">
+    <link rel="stylesheet" type="text/css" href="/css/editormd.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/editormd.logo.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/editormd.preview.min.css">
     <script type="application/javascript" src="/js/jquery.min.js"></script>
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/wangEditor.min.js"></script>
     <script type="application/javascript" src="/js/publish.js"></script>
+    <script type="application/javascript" src="/js/editormd.min.js"></script>
 
 </head>
 <script type="application/javascript">
@@ -51,12 +55,13 @@
                     <label for="title">问题补充（必填，请参照右侧提示）：</label>
                     <!--<textarea class="form-control" name="description" id="description" th:text="${description}"
                               cols="30" rows="10"></textarea>-->
-                    <div>
+                    <!--富文本编辑器-->
+                    <!--<div>
                         <div id="editor"></div>
                         <textarea id="description" style="width:100%; height:200px; display: none" class="form-control"
                                   name="description"
                                   cols="30" rows="10" th:text="${description}"></textarea>
-                        <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+                        &lt;!&ndash; 注意， 只需要引用 JS，无需引用任何 CSS ！！！&ndash;&gt;
                         <script type="text/javascript">
                             var E = window.wangEditor;
                             var editor = new E('#editor');
@@ -72,7 +77,23 @@
                             // $text1.val(editor.txt.html());
                             editor.txt.append($text1.val());
                         </script>
+                    </div>-->
+                    <!--Markdown 编辑器-->
+                    <div id="editor">
+                        <textarea id="description" name="description" style="display: none" th:text="${description}"></textarea>
                     </div>
+                    <script type="application/javascript">
+                        $(function () {
+                            var editorMarkdown = editormd('editor', {
+                                width  : "100%",
+                                height : 450,
+                                path : '/js/lib/',
+                                watch : false,
+                                placeholder : '描述好问题哦欧尼酱(⊙o⊙)...',
+
+                            })
+                        })
+                    </script>
                 </div>
                 <div id="questionTag" class="form-group">
                     <label for="tag">添加标签：</label>
@@ -145,21 +166,4 @@
             return false;
         }
     });
-    // $('#questionTag').click(function () {
-    //     $('#questionTag #selectTagList').hide();
-    // })
-    // $(document).click(function () {
-    //     $('#selectTagList').hide();
-    // });
-    // $('#selectTagList').click(function (event) {
-    //     event.stopPropagation();
-    // });
-    // $(document).ready(function () {
-    //     $('#questionTag').focus(function () {
-    //         $('#selectTagList').toggle();
-    //         return false;
-    //     });
-    // })
-
-
 </script>

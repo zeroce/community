@@ -48,7 +48,6 @@ public class ProfileController {
             setionName = "已收藏的帖子";
         }
         model.addAttribute("section", action);
-        model.addAttribute("unreadCount", unreadCount);
         model.addAttribute("sectionName", setionName);
         model.addAttribute("pagination", paginationDTO);
 

@@ -6,6 +6,9 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="/css/community.css">
+    <link rel="stylesheet" type="text/css" href="/css/editormd.preview.min.css">
+
+
     <script type="application/javascript" src="/js/jquery.min.js"></script>
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/wangEditor.min.js"></script>
@@ -13,6 +16,10 @@
     <!--    <script src="https://unpkg.com/dayjs"></script>-->
     <script type="application/javascript" src="/js/dayjs.js"></script>
     <script type="application/javascript" src="/js/question.js"></script>
+    <script type="application/javascript" src="/js/editormd.min.js"></script>
+    <script type="application/javascript" src="/js/lib/marked.min.js"></script>
+    <script type="application/javascript" src="/js/lib/prettify.min.js"></script>
+
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -30,19 +37,25 @@
                     | 浏览次数：<span th:text="${question.viewCount}"></span>
                 </span>
                 <hr class="hr-sp-up hr-sp-down">
-                <span id="questionDescription" style="display: none" th:text="${question.description}"></span>
                 <div id="description" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <script type="application/javascript">
-                        $('#description').html($('#questionDescription').text());
-                    </script>
+                    <textarea style="display: none; width: 100%" th:text="${question.description}"></textarea>
                 </div>
-                <br>
-                <hr class="hr-sp-down">
+                <script type="application/javascript">
+                    $(function () {
+                        editormd.markdownToHTML('description', {});
+                    });
+                </script>
+            </div>
+            <!--标签-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <hr class="hr-sp-up hr-sp-down">
                 <span class="label label-info span-sp-right" th:each="tag : ${question.tag.split(',')}">
                     <span class="glyphicon glyphicon-tags"></span>
                     <span th:text="${tag}"></span>
                 </span>
-                <br>
+            </div>
+            <!--编辑-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <hr class="hr-sp-up hr-sp-down">
                 <a th:href="@{'/publish/'+${question.id}}" class="community-menu"
                    th:if="${question.user.accountId == #request.session.getAttribute('userAccountId')}">
@@ -50,7 +63,6 @@
                     </span>编辑
                 </a>
             </div>
-
             <!--回复数-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-sp-up">
                 <h4><span th:text="${question.commentCount}"></span> 个回复</h4>
@@ -94,7 +106,6 @@
                     </div>
                 </div>
             </div>
-
             <!--回复输入文本框-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-sp-up">
                 <h4>提交回复</h4>
