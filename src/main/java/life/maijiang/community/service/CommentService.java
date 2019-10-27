@@ -46,7 +46,7 @@ public class CommentService {
      * 评论功能
      *
      * @param comment
-     * @param user
+     * @param commentator
      */
     @Transactional
     public void insert(Comment comment, User commentator) {
@@ -69,10 +69,10 @@ public class CommentService {
             }
             // 保存回复并增加评论数
             commentMapper.insert(comment);
-            Comment newComment = new Comment();
-            newComment.setId(comment.getParentId());
-            newComment.setCommentedCount(1L);
-            commentExtMapper.incCommentedCount(newComment);
+            Comment parentComment = new Comment();
+            parentComment.setId(comment.getParentId());
+            parentComment.setCommentedCount(1L);
+            commentExtMapper.incCommentedCount(parentComment);
 
             // 生成消息通知
             notificationService.createNotify(comment, dbComment.getCommentator(), commentator.getName(), question.getTitle(), NotificationTypeEnum.REPLY_COMMENT, question.getId());
@@ -83,6 +83,7 @@ public class CommentService {
             if (null == question) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
+            comment.setCommentedCount(0L);
             question.setCommentCount(1);
             commentMapper.insert(comment);
             questionExtMapper.intCommentCount(question);

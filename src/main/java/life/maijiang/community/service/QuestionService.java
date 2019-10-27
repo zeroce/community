@@ -2,6 +2,7 @@ package life.maijiang.community.service;
 
 import life.maijiang.community.dto.PaginationDTO;
 import life.maijiang.community.dto.QuestionDTO;
+import life.maijiang.community.dto.QuestionQueryDTO;
 import life.maijiang.community.exception.CustomizeErrorCode;
 import life.maijiang.community.exception.CustomizeException;
 import life.maijiang.community.mapper.QuestionExtMapper;
@@ -103,6 +104,46 @@ public class QuestionService {
     }
 
     /**
+     * 搜索功能
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    public PaginationDTO list(Integer page, Integer size, String search) {
+        if (StringUtils.isNotBlank(search)) {
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+
+        PaginationDTO paginationDTO = new PaginationDTO();
+        // 总行数
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
+        // 计算分页参数
+        paginationDTO.setPagination(totalCount, page, size);
+        // 分页位置设置
+        page = (page < 1) ? 1 : ((page > paginationDTO.getTotalPage()) ? paginationDTO.getTotalPage() : page);
+
+        // size(page-1)
+        Integer offset = size * (page - 1);
+        questionQueryDTO.setSize(size);
+        questionQueryDTO.setPage(offset);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        for (Question question : questions) {
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+        paginationDTO.setData(questionDTOList);
+
+        return paginationDTO;
+    }
+    /**
      * 问题详情
      * @param id
      * @return
@@ -178,4 +219,5 @@ public class QuestionService {
         }).collect(Collectors.toList());
         return questionDTOs;
     }
+
 }

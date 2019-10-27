@@ -1,7 +1,7 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>麻将社区 -- 1.0</title>
+    <title>搜索 -- 1.0</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
@@ -10,15 +10,6 @@
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
 
 </head>
-<script type="application/javascript">
-    window.onload = function () {
-        var closable = window.localStorage.getItem("closable");
-        if (closable == "true") {
-            window.close();
-            window.localStorage.removeItem("closable");
-        }
-    }
-</script>
 <body>
 <div th:insert="navigation :: nav"></div>
 <div class="container-fluid main">
@@ -37,7 +28,8 @@
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${question.description}"></span><br>
+<!--                    <span th:text="${question.description}"></span>-->
+                    <br>
                     <span class="text-desc">
                         <span th:text="${question.commentCount}"></span> 个回复 • <span
                             th:text="${question.viewCount}"></span> 次浏览 • 发布时间 <span
@@ -48,24 +40,24 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li th:if="${pagination.showFirstPage}">
-                        <a th:href="@{/index(page=${1})}" aria-label="Previous">
+                        <a th:href="@{/search(page=${1},search=${searchContent})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showPrevious}">
-                        <a th:href="@{/index(page=${pagination.page - 1})}" aria-label="Previous">
+                        <a th:href="@{/search(page=${pagination.page - 1},search=${searchContent})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page : ${pagination.pages}" th:class="${pagination.page == page} ? 'active' : ''">
-                        <a th:href="@{/index(page=${page})}" th:text="${page}"></a>
+                        <a th:href="@{/search(page=${page},search=${searchContent})}" th:text="${page}"></a>
                     </li>
                     <li th:if="${pagination.showNext}">
-                        <a th:href="@{/index(page=${pagination.page + 1})}" aria-label="Next">
+                        <a th:href="@{/search(page=${pagination.page + 1},search=${searchContent})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     <li th:if="${pagination.showEndPage}">
-                        <a th:href="@{/index(page=${pagination.totalPage})}" aria-label="Next">
+                        <a th:href="@{/search(page=${pagination.totalPage},search=${searchContent})}" aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>

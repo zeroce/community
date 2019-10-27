@@ -11,6 +11,7 @@ public enum CustomizeErrorCode implements ErrorCode {
     COMMEMT_IS_EMPTY(2007, "输入内容不能为空！"),
     READ_NOTIFICATION_FAIL(2008, "兄弟，看别人的消息可不对呦~~"),
     NOTIFICATION_NOT_FOUND(2009, "消息通知可能被吃了( ⊙ o ⊙ )"),
+    FILE_UPLOAD_FAIL(2010, "图片上传失败！"),
     ;
 
     private String message;

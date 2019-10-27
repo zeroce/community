@@ -83,16 +83,21 @@
                         <textarea id="description" name="description" style="display: none" th:text="${description}"></textarea>
                     </div>
                     <script type="application/javascript">
+                        var editorMarkdown;
                         $(function () {
-                            var editorMarkdown = editormd('editor', {
+                            editorMarkdown = editormd('editor', {
                                 width  : "100%",
                                 height : 450,
                                 path : '/js/lib/',
+                                delay : 300,
                                 watch : false,
-                                placeholder : '描述好问题哦欧尼酱(⊙o⊙)...',
-
-                            })
-                        })
+                                placeholder : '要描述清楚问题哦 欧尼酱(⊙o⊙)...',
+                                imageUpload    : true,
+                                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                imageUploadURL : "/file/upload"
+                            });
+                            // editorMarkdown.insertValue($('#description').val());
+                        });
                     </script>
                 </div>
                 <div id="questionTag" class="form-group">
@@ -155,15 +160,5 @@
 <script type="application/javascript">
     $('#tag').click(function () {
         $("#selectTagList").show();
-    });
-    $(document).bind("click", function (e) {
-        if ($(e.target).is('#questionTag') || $(e.target).is('#')) {
-            return;
-        } else {
-            if ($('#questionTag #selectTagList').css("display") == "block") {
-                $('#questionTag #selectTagList').hide();
-            }
-            return false;
-        }
     });
 </script>

@@ -79,7 +79,6 @@
                             <div th:text="${comment.content}"></div>
                             <div class="comment-menu">
                                 <span class="glyphicon glyphicon-thumbs-up glyphicon-style"></span>
-                                <span class="glyphicon glyphicon-thumbs-down glyphicon-style"></span>
                                 <span class="glyphicon glyphicon-comment glyphicon-style"
                                       th:data-id="${comment.id}"
                                       th:text="${comment.commentedCount}"
@@ -113,11 +112,11 @@
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-rounded img-size-head" th:src="${question.user.avatarUrl}">
+                            <img class="media-object img-rounded img-size-head" th:src="${session.user != null ? session.user.avatarUrl : '/img/default-avatar.png'}">
                         </a>
                     </div>
                     <div class="media-body">
-                        <span th:text="${question.user.name}"></span>
+                        <span th:text="${session.user != null ? session.user.name : '要回复文章请先登录或注册！'}"></span>
                     </div>
                     <div class="media-right">
                         <a href="#">
@@ -149,6 +148,7 @@
                 </script>
             </div>
             <input type="hidden" th:value="${question.id}" id="questionId">
+            <!--提交回复-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <button class="btn btn-success btn-publish" onclick="postComment()">回复</button>
             </div>

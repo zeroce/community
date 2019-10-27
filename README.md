@@ -13,8 +13,10 @@
 [Flyway Maven 配置](https://flywaydb.org/getstarted/firststeps/maven)  
 [Lombok Maven 配置说明](https://projectlombok.org/setup/maven)(不同 IDE 有不同的使用说明，IDEA 除了引入依赖还要安装 Lombok 插件)  
 [Thymeleaf 文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
-[Mybatis Generator Core 文档](http://mybatis.org/generator/configreference/javaClientGenerator.html)
+[Mybatis Generator Core 文档](http://mybatis.org/generator/configreference/javaClientGenerator.html)  
 [mybatis-spring-boot-starter 文档](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)  
+[UCloud Ufile 对象存储文档](https://docs.ucloud.cn/storage_cdn/ufile/index.html)  
+[Java SDK for UCloud Ufile](https://github.com/ucloud/ufile-sdk-java)  
 
 ## 工具
 [GIt](https://git-scm.com/downloads)  
@@ -26,6 +28,7 @@
 [WangEditor 富文本编辑器 github 项目地址](https://github.com/wangfupeng1988/wangEditor/)
 [Editormd Markdown编辑器 github 项目地址](https://github.com/pandao/editor.md)
 [Editormd 编辑器官网](http://editor.md.ipandao.com/)
+[UCloud 官网](https://www.ucloud.cn/)
 
 ## 数据库脚本
 ```sql
@@ -123,3 +126,31 @@ Postman 在模拟请求的时候，如果需要检验登录状态的话，需要
 ### Editormd -- 引入 Markdown 编辑器代替 wangEditor（2019-10-22）
 之前引入 *wangEditor* 来丰富编辑器，现在引入 Editormd 来增加使用体验。项目本身在 **Github** 上有持续维护（现在），但是在码云上貌似很久没更新了（不过影响不大）。地址已经放在上面了。  
 Editormd 编辑器的文档还是挺容易读的。  
+
+### 图片上传和存储 -- UCloud Ufile 使用（2019-10-26）
+引入 *Editormd* 之后，为了能够上传和存储图片，采用了 **UCloud** 云服务的 **Ufile** 对象存储。emmmm个人体验不错，认证审核很快，SDK 阅读也不难，关键是提供的免费服务很好666666。  
+图片上传功能的思路（同步上传）：
+1. 表单上传图片，由 `FileController` 借助 `request` 保存图片文件。  
+2. 将 `HttpServletRequest` 转为 `MultipartHttpServletRequest.getFile(name)`，找到上传的图片文件。
+3. 调用 `UCloudProvider` 的 `upload()` 方法，传入图片文件的初始命名，文件类型和文件流。
+4. 给图片文件生成网上命名，并获得存储空间的公钥密钥，将文件上传到存储空间，并获得 `response`。
+5. 根据 `response` 返回的状态码，若成功上传则生成图片文件的 **URL**，上传失败则返回失败异常（图片上传失败）。
+6. 得到生成的图片文件的 **URL**，并封装成 `FileDTO` 返回给前端页面。
+
+### 多人登录状态的遗留问题（2019-10-26）
+按理说现在论坛的登录功能是支持多人同时登录的，但是有一个问题，就是问题详情页面，评论回复输入框的提示应该是当前登录用户，或者是提示未登录状态。因此修改显示用户的头像和信息，从 `session` 中获取 `user` 的信息。  
+还有一个，当回复问题时，提交一级评论后，任何一条的一级评论的初始被评论数为1，应该修改为0。  
+
+### 发现分页的一个**Bug**（2019-10-27）
+当 `totalCount` 是0时，分页的结果不能显示出来，并返回服务器异常。需要修复一下。  
+
+### 搜索功能（2019-10-27）
+目前实现了一下简单的搜索功能，基本实现逻辑是根据提交的搜索内容进行标题正则匹配，将包含的结果都查出来，返回到搜索页。  
+1. 首先提交搜索内容。
+2. 根据内容生成响应的关键词数组。
+3. 根据关键词数组进行问题查找，并返回查找到的记录和总记录数。
+4. 根据总记录数进行分页（物理分页）。
+5. 将分页结果和记录返回到前端。  
+
+但是现在流行的搜索方式应该是采用 **Solr** 或者 **Elasticsearch**，实现这次功能只是采用很简单的逻辑，并没有什么难度，且效率问题、准确度问题。。。  
+
