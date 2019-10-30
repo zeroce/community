@@ -39,6 +39,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
+                           @RequestParam(name = "locationHref") String locationHref,
                            HttpServletResponse response,
                            Model model) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
@@ -62,7 +63,7 @@ public class AuthorizeController {
             userService.createOrUpdate(user);
             model.addAttribute("user", user);
             response.addCookie(tokenCookie);
-            return "redirect:/index";
+            return ("redirect:/" + locationHref.split("/",4)[3]);
         }else {
             // 登录失败，重新登录
             return "redirect:/index";

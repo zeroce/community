@@ -3,7 +3,7 @@ package life.maijiang.community.enums;
 public enum NotificationStatusEnum {
 
     UNREAD(0),
-    READ(1)
+    READ(1),
     ;
     private int status;
 

@@ -44,7 +44,6 @@ public class CommentService {
 
     /**
      * 评论功能
-     *
      * @param comment
      * @param commentator
      */
@@ -95,7 +94,6 @@ public class CommentService {
 
     /**
      * 问题回复收集
-     *
      * @param id
      * @param type
      * @return

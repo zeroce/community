@@ -1,3 +1,36 @@
+
+/**
+ * 改变点赞状态
+ * @param e
+ */
+function changeLikeCommentState(e) {
+    var commentId = e.getAttribute("data-id");
+    if (e.classList.contains("active")) {
+        sendLikeState(0, commentId, 2);
+        e.classList.remove("active");
+    } else {
+        sendLikeState(1, commentId, 2);
+        e.classList.add("active");
+    }
+}
+function sendLikeState(status, targetId, targetType) {
+    $.ajax({
+        type: "POST",
+        url: "/favour",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "status": status,
+            "targetId": targetId,
+            "targetType": targetType
+        }),
+        success: function (response) {
+            if (response.code != 200) {
+                alert(response.message)
+            }
+        },
+        dataType: "json"
+    })
+}
 /**
  * 提交回复
  */
@@ -6,7 +39,11 @@ function postComment() {
     var content = $("#comment").val();
     postCommentToTarget(questionId, 1, content);
 }
-
+function comment(e) {
+    var commentId = e.getAttribute("data-id");
+    var content = $("#input-" + commentId).val();
+    postCommentToTarget(commentId, 2, content);
+}
 /**
  * 发送请求获取目标评论记录
  * @param targetId
@@ -44,13 +81,6 @@ function postCommentToTarget(targetId, type, content) {
         dataType: "json"
     });
 }
-
-function comment(e) {
-    var commentId = e.getAttribute("data-id");
-    var content = $("#input-" + commentId).val();
-    postCommentToTarget(commentId, 2, content);
-}
-
 /**
  * 展开二级评论
  */
@@ -117,7 +147,6 @@ function collapseComments(e) {
         console.info(id);
     }
 }
-
 /**
  * 取消回复二级评论
  * @param e

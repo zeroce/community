@@ -78,8 +78,11 @@
                             <div th:text="${comment.user.name}"></div>
                             <div th:text="${comment.content}"></div>
                             <div class="comment-menu">
-                                <span class="glyphicon glyphicon-thumbs-up glyphicon-style"></span>
+                                <span id="like-icon" name="like-icon" class="glyphicon glyphicon-thumbs-up glyphicon-style"
+                                      onclick="changeLikeCommentState(this)"
+                                      th:data-id="${comment.id}"></span>
                                 <span class="glyphicon glyphicon-comment glyphicon-style"
+                                      id="second-comment-icon"
                                       th:data-id="${comment.id}"
                                       th:text="${comment.commentedCount}"
                                       onclick="collapseComments(this)"></span>
@@ -186,3 +189,21 @@
 </div>
 </body>
 </html>
+<script type="application/javascript">
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: "/favour",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "targetId": $('#second-comment-icon').getAttribute("data-id"),
+                "targetType": "1"
+            }),
+            success: function (response) {
+                if (response.data == 1) {
+                    $('#like-icon').classList.add("active");
+                }
+            }
+        });
+    })
+</script>

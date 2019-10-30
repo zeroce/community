@@ -86,6 +86,11 @@ body {
     height: 300px;
     z-index: 10000;
 }
+.footer {
+    padding: 10px 25%;
+    color: rgb(144, 140, 131);
+    --darkreader-inline-color: #807d77;
+}
 .form-group .div-sp-up-list {
     margin-top: 10px;
 }
