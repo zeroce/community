@@ -105,11 +105,13 @@
                         </ul>
                     </li>
                     <li th:if="${session.user == null}">
-                        <!--                        <a href="https://github.com/login/oauth/authorize?client_id=6b94612764d44e4ce138&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>-->
-                        <a id="login-or-register" href="">登录/注册</a>
+                        <a id="login-or-register" th:href="@{https://github.com/login/oauth/authorize(
+                        client_id='6b94612764d44e4ce138',scope='user',state=1,
+                        redirect_uri=${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort() + '/callback'})}">登录/注册</a>
                         <script type="application/javascript">
                             var locationHref = window.location.href;
-                            document.getElementById("login-or-register").setAttribute("href", "https://github.com/login/oauth/authorize?client_id=6b94612764d44e4ce138&scope=user&state=1&redirect_uri=http://localhost:8887/callback?locationHref=" + locationHref);
+                            var dynamicHref = document.getElementById("login-or-register").getAttribute("href");
+                            document.getElementById("login-or-register").setAttribute("href", dynamicHref + "?locationHref=" + locationHref);
                         </script>
                     </li>
                 </ul>

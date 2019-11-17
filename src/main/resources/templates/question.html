@@ -78,16 +78,21 @@
                             <div th:text="${comment.user.name}"></div>
                             <div th:text="${comment.content}"></div>
                             <div class="comment-menu">
-                                <span id="like-icon" name="like-icon" class="glyphicon glyphicon-thumbs-up glyphicon-style"
-                                      onclick="changeLikeCommentState(this)"
-                                      th:data-id="${comment.id}"></span>
-                                <span class="glyphicon glyphicon-comment glyphicon-style"
-                                      id="second-comment-icon"
-                                      th:data-id="${comment.id}"
-                                      th:text="${comment.commentedCount}"
-                                      onclick="collapseComments(this)"></span>
-                                <span class="comment-time"
-                                      th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                                <form>
+                                    <span class="glyphicon glyphicon-thumbs-up glyphicon-style"
+                                          id="like-icon" name="like-icon"
+                                          tabindex="0"
+                                          onclick="changeLikeCommentState(this)"
+                                          onblur="setLikeState()"
+                                          th:data-id="${comment.id}"></span>
+                                    <span class="glyphicon glyphicon-comment glyphicon-style"
+                                          id="second-comment-icon"
+                                          th:data-id="${comment.id}"
+                                          th:text="${comment.commentedCount}"
+                                          onclick="collapseComments(this)"></span>
+                                    <span class="comment-time"
+                                          th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                                </form>
                             </div>
                             <!--二级评论-->
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comments"
@@ -115,7 +120,8 @@
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-rounded img-size-head" th:src="${session.user != null ? session.user.avatarUrl : '/img/default-avatar.png'}">
+                            <img class="media-object img-rounded img-size-head"
+                                 th:src="${session.user != null ? session.user.avatarUrl : '/img/default-avatar.png'}">
                         </a>
                     </div>
                     <div class="media-body">
@@ -156,9 +162,9 @@
                 <button class="btn btn-success btn-publish" onclick="postComment()">回复</button>
             </div>
         </div>
-
         <!--右边栏-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <!--问题发起人-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4 class="hr-sp-up">发起人</h4>
                 <div class="media">
@@ -176,6 +182,7 @@
                     <hr>
                 </div>
             </div>
+            <!--相关问题-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>相关问题</h4>
                 <ul class="question-related">
@@ -189,21 +196,3 @@
 </div>
 </body>
 </html>
-<script type="application/javascript">
-    $(function () {
-        $.ajax({
-            type: "POST",
-            url: "/favour",
-            contentType: "application/json",
-            data: JSON.stringify({
-                "targetId": $('#second-comment-icon').getAttribute("data-id"),
-                "targetType": "1"
-            }),
-            success: function (response) {
-                if (response.data == 1) {
-                    $('#like-icon').classList.add("active");
-                }
-            }
-        });
-    })
-</script>

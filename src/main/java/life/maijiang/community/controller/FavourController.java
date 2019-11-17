@@ -39,6 +39,12 @@ public class FavourController {
         return ResultDTO.okOf();
     }
 
+    /**
+     * 评论的点赞状态
+     * @param favourSetDTO
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/favour/status", method = RequestMethod.POST)
     public Object validateState(@RequestBody FavourSetDTO favourSetDTO,

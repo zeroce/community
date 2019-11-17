@@ -61,7 +61,11 @@ body {
     color: #999;
     font-size: 13px;
 }
-
+.description-font-style {
+    font-size: 15px;
+    font-weight: normal;
+    color: #5d5b5b99;
+}
 .div-sp-up {
     margin-top: 30px;
 }
@@ -113,6 +117,12 @@ body {
 }
 .jumbotron {
     margin: 50px;
+}
+.line-limit-length {
+    max-width: 800px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .navigation-glyphicon {
     font-size: 25px;

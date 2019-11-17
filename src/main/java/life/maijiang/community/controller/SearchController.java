@@ -18,11 +18,13 @@ public class SearchController {
     public String search(Model model,
                          @RequestParam(name = "search", required = false) String search,
                          @RequestParam(name = "page", defaultValue = "1") Integer page,
-                         @RequestParam(name = "size", defaultValue = "5") Integer size) {
+                         @RequestParam(name = "size", defaultValue = "15") Integer size,
+                         @RequestParam(name = "tag", required = false) String tag) {
 
-        PaginationDTO pagination = questionService.list(page, size, search);
+        PaginationDTO pagination = questionService.list(page, size, search, tag);
         model.addAttribute("pagination", pagination);
         model.addAttribute("searchContent", search);
+        model.addAttribute("hotTag", tag);
         return "search";
     }
 }

@@ -53,31 +53,6 @@
                 </div>
                 <div class="form-group">
                     <label for="title">问题补充（必填，请参照右侧提示）：</label>
-                    <!--<textarea class="form-control" name="description" id="description" th:text="${description}"
-                              cols="30" rows="10"></textarea>-->
-                    <!--富文本编辑器-->
-                    <!--<div>
-                        <div id="editor"></div>
-                        <textarea id="description" style="width:100%; height:200px; display: none" class="form-control"
-                                  name="description"
-                                  cols="30" rows="10" th:text="${description}"></textarea>
-                        &lt;!&ndash; 注意， 只需要引用 JS，无需引用任何 CSS ！！！&ndash;&gt;
-                        <script type="text/javascript">
-                            var E = window.wangEditor;
-                            var editor = new E('#editor');
-                            var $text1 = $('#description');
-                            console.info($text1.val());
-                            // 或者 var editor = new E( document.getElementById('editor') )
-                            editor.customConfig.onchange = function (html) {
-                                // 监控变化，同步更新到 textarea
-                                $text1.val(html)
-                            };
-                            editor.create();
-                            editor.txt.clear();
-                            // $text1.val(editor.txt.html());
-                            editor.txt.append($text1.val());
-                        </script>
-                    </div>-->
                     <!--Markdown 编辑器-->
                     <div id="editor">
                         <textarea id="description" name="description" style="display: none" th:text="${description}"></textarea>

@@ -1,3 +1,22 @@
+/**
+ * 初始化点赞状态
+ */
+function setLikeState() {
+    $.ajax({
+        type: "POST",
+        url: "/favour/status",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "targetId": $("#second-comment-icon").getAttribute("data-id"),
+            "targetType": "1"
+        }),
+        success: function (response) {
+            if (response.data == 1) {
+                $("#like-icon").classList.add("active");
+            }
+        }
+    });
+}
 
 /**
  * 改变点赞状态
@@ -13,6 +32,7 @@ function changeLikeCommentState(e) {
         e.classList.add("active");
     }
 }
+
 function sendLikeState(status, targetId, targetType) {
     $.ajax({
         type: "POST",
@@ -31,6 +51,7 @@ function sendLikeState(status, targetId, targetType) {
         dataType: "json"
     })
 }
+
 /**
  * 提交回复
  */
@@ -39,11 +60,13 @@ function postComment() {
     var content = $("#comment").val();
     postCommentToTarget(questionId, 1, content);
 }
+
 function comment(e) {
     var commentId = e.getAttribute("data-id");
     var content = $("#input-" + commentId).val();
     postCommentToTarget(commentId, 2, content);
 }
+
 /**
  * 发送请求获取目标评论记录
  * @param targetId
@@ -81,6 +104,7 @@ function postCommentToTarget(targetId, type, content) {
         dataType: "json"
     });
 }
+
 /**
  * 展开二级评论
  */
@@ -117,19 +141,19 @@ function collapseComments(e) {
                         "text": comment.user.name
                     }))).append($("<span/>", {
                         "text": " | " + dayjs(comment.gmtCreate).format("YYYY-MM-DD")
-                    })).append($("<a/>",{
+                    })).append($("<a/>", {
                         "href": "#"
                     }).append(
                         $("<span/>", {
-                        "class": "comment-float",
-                        "text": "回复",
-                        "data-id": comment.id
-                    })))).append($("<div/>", {
+                            "class": "comment-float",
+                            "text": "回复",
+                            "data-id": comment.id
+                        })))).append($("<div/>", {
                         "text": comment.content
                     }));
 
                     var mediaElement = $("<div>", {
-                      "class": "media"
+                        "class": "media"
                     }).append(mediaLeftElement)
                         .append(mediabodyElement)
                         .append($("<hr/>", {
@@ -147,6 +171,7 @@ function collapseComments(e) {
         console.info(id);
     }
 }
+
 /**
  * 取消回复二级评论
  * @param e

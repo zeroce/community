@@ -28,7 +28,6 @@
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-<!--                    <span th:text="${question.description}"></span>-->
                     <br>
                     <span class="text-desc">
                         <span th:text="${question.commentCount}"></span> 个回复 • <span
@@ -40,24 +39,24 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li th:if="${pagination.showFirstPage}">
-                        <a th:href="@{/search(page=${1},search=${searchContent})}" aria-label="Previous">
+                        <a th:href="@{/search(page=${1},search=${searchContent},tag=${hotTag})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showPrevious}">
-                        <a th:href="@{/search(page=${pagination.page - 1},search=${searchContent})}" aria-label="Previous">
+                        <a th:href="@{/search(page=${pagination.page - 1},search=${searchContent},tag=${hotTag})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page : ${pagination.pages}" th:class="${pagination.page == page} ? 'active' : ''">
-                        <a th:href="@{/search(page=${page},search=${searchContent})}" th:text="${page}"></a>
+                        <a th:href="@{/search(page=${page},search=${searchContent},tag=${hotTag})}" th:text="${page}"></a>
                     </li>
                     <li th:if="${pagination.showNext}">
-                        <a th:href="@{/search(page=${pagination.page + 1},search=${searchContent})}" aria-label="Next">
+                        <a th:href="@{/search(page=${pagination.page + 1},search=${searchContent},tag=${hotTag})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     <li th:if="${pagination.showEndPage}">
-                        <a th:href="@{/search(page=${pagination.totalPage},search=${searchContent})}" aria-label="Next">
+                        <a th:href="@{/search(page=${pagination.totalPage},search=${searchContent},tag=${hotTag})}" aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
@@ -72,11 +71,6 @@
                 <h4>站长QQ</h4>
                 <img src="/img/QQ_Lizhen.JPG" alt="Author' s image has failed to reveal..." class="img-thumbnail">
                 <hr class="hr-sp-up">
-            </div>
-            <!--热搜榜-->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4>热搜榜</h4>
-
             </div>
         </div>
     </div>

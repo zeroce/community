@@ -27,7 +27,7 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现 </h2>
             <hr>
-            <div class="media" th:each="question : ${pagination.data}" th:if="${pagination.data.size() != 0}">
+            <div class="media span-sp-up" th:each="question : ${pagination.data}" th:if="${pagination.data.size() != 0}">
                 <div class="media-left">
                     <a th:href="@{'/question/'+${question.id}}">
                         <img class="media-object img-rounded img-size" th:src="${question.user.avatarUrl}">
@@ -37,13 +37,14 @@
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${question.description}"></span><br>
+                    <p class="line-limit-length span-sp-up span-sp-down description-font-style" th:text="${question.description}"></p>
                     <span class="text-desc">
                         <span th:text="${question.commentCount}"></span> 个回复 • <span
                             th:text="${question.viewCount}"></span> 次浏览 • 发布时间 <span
                             th:text="${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
                     </span>
                 </div>
+                <hr class="span-sp-up span-sp-down">
             </div>
             <nav aria-label="Page navigation">
                 <ul class="pagination">
@@ -84,7 +85,20 @@
             <!--热搜榜-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>热搜榜</h4>
-
+                <ul class="question-related">
+                    <li th:each="tag : ${hotTags}">
+                        <a th:href="@{/search(tag=${tag})}" th:text="${tag}"></a>
+                    </li>
+                </ul>
+            </div>
+            <!--相关问题-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>相关问题</h4>
+                <ul class="question-related">
+                    <li th:each="relatedQuestion : ${relatedQuestions}">
+                        <a th:href="@{'/question/' + ${relatedQuestion.id}}" th:text="${relatedQuestion.title}"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

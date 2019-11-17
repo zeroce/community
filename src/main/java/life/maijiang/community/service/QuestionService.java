@@ -108,9 +108,10 @@ public class QuestionService {
      * @param page
      * @param size
      * @param search
+     * @param tag
      * @return
      */
-    public PaginationDTO list(Integer page, Integer size, String search) {
+    public PaginationDTO list(Integer page, Integer size, String search, String tag) {
         if (StringUtils.isNotBlank(search)) {
             String[] tags = StringUtils.split(search, " ");
             search = Arrays.stream(tags).collect(Collectors.joining("|"));
@@ -120,6 +121,7 @@ public class QuestionService {
         // 总行数
         QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
         questionQueryDTO.setSearch(search);
+        questionQueryDTO.setTag(tag);
         Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
         // 计算分页参数
         paginationDTO.setPagination(totalCount, page, size);

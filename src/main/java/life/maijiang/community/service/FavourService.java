@@ -16,7 +16,6 @@ public class FavourService {
 
     /**
      * 点赞记录保存
-     *
      * @param favour
      */
     public void insertOrUpdateFavour(Favour favour) {
@@ -39,6 +38,12 @@ public class FavourService {
         }
     }
 
+    /**
+     * 点赞状态验证
+     * @param targetId
+     * @param targetType
+     * @return
+     */
     public Favour validateState(Long targetId, Integer targetType) {
         FavourExample example = new FavourExample();
         example.createCriteria().andTypeIdEqualTo(targetId).andTypeEqualTo(targetType);

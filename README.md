@@ -1,6 +1,12 @@
 ## 跟着麻将社区做的项目源码
 没什么，想看源码可以去 github 上的 community 仓库。
 
+## 部署到服务器
+- Git 
+- JDK1.8
+- Maven
+- MySQL5.7
+
 ## 资料
 [Spring 指导](https://spring.io/guides)  
 [Spring Thymeleaf 文档](https://spring.io/guides/gs/serving-web-content/)  
@@ -165,3 +171,7 @@ Editormd 编辑器的文档还是挺容易读的。
 ### 登录跳转问题（2019-10-30）
 增加一个参数，将浏览页面的URL传到后台，然后重定向到URL。
 
+### 点赞功能 -- 2 -- 异步刷新（2019-11-05）
+还没有整出来。。。。。。我太菜了/大哭
+
+### 引入 Spring Boot 定时器 -- 1 -- 热门话题
