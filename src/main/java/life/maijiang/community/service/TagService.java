@@ -15,7 +15,7 @@ public class TagService {
     private TagMapper tagMapper;
 
     public void createOrUpdate(Tag tag) {
-        List<Tag> tagList = getByName(tag.getName());
+        List<Tag> tagList = getListByName(tag.getName());
         if (null == tagList || 0 == tagList.size()) {
             // 插入记录
             tagMapper.insert(tag);
@@ -23,17 +23,23 @@ public class TagService {
             // 更新记录
             TagExample example = new TagExample();
             example.createCriteria().andNameEqualTo(tag.getName());
-            tagMapper.updateByExampleSelective(tagList.get(0), example);
+            tagMapper.updateByExampleSelective(tag, example);
 
         }
 
     }
 
-    public List<Tag> getByName(String name) {
+    public List<Tag> getListByName(String name) {
         TagExample example = new TagExample();
         example.createCriteria().andNameEqualTo(name);
+        
         List<Tag> tags = tagMapper.selectByExample(example);
         return tags;
     }
 
+    public List<Tag> getListByType(Long type) {
+        TagExample example = new TagExample();
+        example.createCriteria().andTypeEqualTo(type);
+        return tagMapper.selectByExample(example);
+    }
 }

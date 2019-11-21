@@ -61,14 +61,20 @@
                     <li th:if="${session.user != null}">
                         <a href="/publish">
                             <span class="glyphicon glyphicon-question-sign navigation-glyphicon"
-                                  aria-hidden="true"></span>
+                                  aria-hidden="true"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="提问"></span>
                         </a>
                     </li>
                     <!--通知-->
                     <li th:if="${session.user != null}">
                         <a href="/profile/replies">
                                     <span class="glyphicon glyphicon-bell navigation-glyphicon"
-                                          aria-hidden="true"></span>
+                                          aria-hidden="true"
+                                          data-toggle="tooltip"
+                                          data-placement="bottom"
+                                          title="通知"></span>
                             <span class="badge" th:text="${session.unreadCount}"></span>
                         </a>
                     </li>

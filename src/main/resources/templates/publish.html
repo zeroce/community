@@ -14,29 +14,9 @@
     <script type="application/javascript" src="/js/wangEditor.min.js"></script>
     <script type="application/javascript" src="/js/publish.js"></script>
     <script type="application/javascript" src="/js/editormd.min.js"></script>
+    <script type="application/javascript" src="/js/jquery.validate.min.js"></script>
 
 </head>
-<script type="application/javascript">
-    function checkPublishForm() {
-        var errorStr = null;
-        if (!$("#title").val()) {
-            errorStr = +"标题不能为空；";
-        }
-        if (!$("#tag").val()) {
-            errorStr = +"标签不能为空；";
-        }
-        if (!$("#description").val()) {
-            errorStr = +"问题描述不能为空；";
-        }
-        console.info(errorStr);
-        if (!errorStr) {
-            $("#error").val(errorStr);
-            return false;
-        } else {
-            return true;
-        }
-    }
-</script>
 <body>
 <div th:insert="navigation :: nav"></div>
 <div class="container-fluid main">
@@ -44,17 +24,20 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发起 </h2>
             <hr>
-            <form action="/publish" method="post" name="questionForm">
+            <!--问题表单-->
+            <form id="questionForm" action="/publish" method="post" name="questionForm">
                 <input type="hidden" name="id" th:value="${id}">
+                <!--标题-->
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）：</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="问题标题......"
                            th:value="${title}" autocomplete="off">
                 </div>
+                <!--问题描述-->
                 <div class="form-group">
                     <label for="title">问题补充（必填，请参照右侧提示）：</label>
                     <!--Markdown 编辑器-->
-                    <div id="editor">
+                    <div id="editor" name="mdeditor">
                         <textarea id="description" name="description" style="display: none" th:text="${description}"></textarea>
                     </div>
                     <script type="application/javascript">
@@ -75,6 +58,7 @@
                         });
                     </script>
                 </div>
+                <!--标签-->
                 <div id="questionTag" class="form-group">
                     <label for="tag">添加标签：</label>
                     <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以 ， 隔开"
@@ -99,8 +83,8 @@
                                 <span class="label label-info span-sp-right span-style"
                                       th:each="selectTag : ${selectCatagory.tags}">
                                     <span class="glyphicon glyphicon-tag"
-                                          th:data-tag="${selectTag}"
-                                          th:text="${' ' + selectTag}"
+                                          th:data-tag="${selectTag.name}"
+                                          th:text="${' ' + selectTag.name}"
                                           onclick="selectTag(this)"></span>
                                 </span>
                             </div>
@@ -108,6 +92,7 @@
                     </div>
 
                 </div>
+                <!--提交问题-->
                 <div id="errorAndCommitBtn">
                     <span id="error" name="error" class="alert alert-danger alert-comment" th:text="${error}"
                           th:if="${error != null}"></span>
@@ -131,10 +116,45 @@
     </div>
 </div>
 <div th:insert="footer :: footer"></div>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $('#questionForm').validate({
+            onsubmit: true,
+            onfocusout: true,
+            onkeypress: true,
+            rules: {
+                title: "required",
+                description: "required",
+                tag: "required"
+            },
+            messages: {
+                title: "标题不得为空",
+                description: "请好好描述内容",
+                tag: "至少一个标签，不要多余五个"
+            },
+            submitHandler: function (form) {
+                form.setAttribute("action", "/publish");
+                form.submit();
+            },
+            errorElement: "em",
+            errorPlacement: function ( error, element ) {
+                // Add the `help-block` class to the error element
+                error.addClass( "help-block" );
+
+                if ( element.prop( "type" ) === "checkbox" ) {
+                    error.insertAfter( element.parent( "label" ) );
+                } else {
+                    error.insertAfter( element );
+                }
+            },
+            highlight: function ( element, errorClass, validClass ) {
+                $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+            }
+        })
+    })
+</script>
 </body>
 </html>
-<script type="application/javascript">
-    $('#tag').click(function () {
-        $("#selectTagList").show();
-    });
-</script>

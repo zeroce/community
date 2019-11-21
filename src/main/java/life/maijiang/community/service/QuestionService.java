@@ -38,20 +38,32 @@ public class QuestionService {
      * 分页查询帖子
      * @param page
      * @param size
+     * @param sortedBy
      * @return
      */
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO listBySorted(Integer page, Integer size, String sortedBy) {
         PaginationDTO paginationDTO = new PaginationDTO();
+        // 设置查询条件
+        QuestionExample questionExample = new QuestionExample();
+
+        long currentTimeMillis = System.currentTimeMillis();
+        if (null == sortedBy || sortedBy.equals("")) {
+        } else if (sortedBy.equals("weekly-popular")) {
+            questionExample.createCriteria().andGmtCreateBetween(currentTimeMillis - 7*24*60*60*1000L, currentTimeMillis);
+        } else if (sortedBy.equals("monthly-popular")) {
+            questionExample.createCriteria().andGmtCreateBetween(currentTimeMillis - 30*24*60*60*1000L, currentTimeMillis);
+        } else if (sortedBy.equals("eliminate-zero-recovery")) {
+            questionExample.createCriteria().andCommentCountEqualTo(0);
+        }
         // 总行数
-        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
+        Integer totalCount = (int) questionMapper.countByExample(questionExample);
         // 计算分页参数
         paginationDTO.setPagination(totalCount, page, size);
         // 分页位置设置
         page = (page < 1) ? 1 : ((page > paginationDTO.getTotalPage()) ? paginationDTO.getTotalPage() : page);
-
         // size(page-1)
         Integer offset = size * (page - 1);
-        QuestionExample questionExample = new QuestionExample();
+        // 排序条件
         questionExample.setOrderByClause("gmt_create desc");
         List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();

@@ -39,6 +39,7 @@
         <table schema="DB2ADMIN" tableName="tag" domainObjectName="Tag"></table>
         <table schema="DB2ADMIN" tableName="notification" domainObjectName="Notification"></table>
         <table schema="DB2ADMIN" tableName="favour" domainObjectName="Favour"></table>
+        <table schema="DB2ADMIN" tableName="tag_field" domainObjectName="TagField"></table>
 
     </context>
 </generatorConfiguration>

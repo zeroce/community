@@ -8,11 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -26,12 +23,14 @@ public class IndexController {
     @GetMapping("/index")
     public String index(Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
-                        @RequestParam(name = "size", defaultValue = "15") Integer size) {
+                        @RequestParam(name = "size", defaultValue = "15") Integer size,
+                        @RequestParam(name = "sortedBy", required = false) String sortedBy) {
 
-        PaginationDTO pagination = questionService.list(page, size);
+        PaginationDTO pagination = questionService.listBySorted(page, size, sortedBy);
         List<String> hotTagCacheHots = hotTagCache.getHots();
         model.addAttribute("pagination", pagination);
         model.addAttribute("hotTags", hotTagCacheHots);
+        model.addAttribute("sortedBy", sortedBy);
         return "index";
     }
 }

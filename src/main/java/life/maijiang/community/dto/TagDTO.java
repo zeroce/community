@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TagDTO {
+public class TagDTO<T> {
     private String catagoryName;
-    private List<String> tags;
+    private List<T> tags;
 }

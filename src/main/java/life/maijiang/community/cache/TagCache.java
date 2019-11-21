@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 
 @Data
 public class TagCache {
-    public static List<TagDTO> get() {
-        List<TagDTO> tagDTOs = new ArrayList<>();
+    public static List<TagDTO<String>> get() {
+        List<TagDTO<String>> tagDTOs = new ArrayList<>();
         TagDTO program = new TagDTO();
         program.setCatagoryName("开发语言");
         program.setTags(Arrays.asList("java", "c++", "c", "c#", "Javascript", "html", "css", "Ruby", "Python", "Go", "Shell", "objective-c", "PHP", "R", "Swift", "Matlab", "TypeScript", "Kotlin", "VBA", "Scala"));
@@ -44,7 +44,7 @@ public class TagCache {
 
     public static String FilterIsValid(String tags) {
         String[] split = StringUtils.split(tags, ",");
-        List<TagDTO> tagDTOS = get();
+        List<TagDTO<String>> tagDTOS = get();
 
         List<String> tagList = tagDTOS.stream().flatMap(tag -> tag.getTags().stream()).collect(Collectors.toList());
         String invalid = Arrays.stream(split).filter(t -> !tagList.contains(t)).collect(Collectors.joining(","));

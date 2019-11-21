@@ -7,6 +7,9 @@ body {
     margin-left: 90px;
     margin-right: 90px;
 }
+.a-font-color {
+    color: red;
+}
 .a-sp-up {
     margin-top: 10px;
 }
@@ -163,6 +166,10 @@ body {
     margin-top: 10px;
     border: 1px solid #eee;
     padding-top: 15px;
+}
+.tag-style {
+    background-color: rgb(112, 188, 255);
+    color: rgb(234, 231, 225) !important;
 }
 .text-desc {
     font-size: 12px;
