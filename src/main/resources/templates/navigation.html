@@ -9,45 +9,21 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <ul class="nav navbar-nav navbar-left">
-                    <li>
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">麻将社区</span>
-                        </button>
-                        <span class="span-sp-left span-sp-right"><a class="navbar-brand" href="/index">麻将社区</a></span>
-                    </li>
-                    <li>
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">麻将社区</span>
-                        </button>
-                        <span class="span-sp-left span-sp-right"><a class="navbar-brand" href="#">首页</a></span>
-                    </li>
-                    <li>
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">麻将社区</span>
-                        </button>
-                        <span class="span-sp-left span-sp-right"><a class="navbar-brand" href="#">问答</a></span>
-                    </li>
-                    <li>
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">麻将社区</span>
-                        </button>
-                        <span class="span-sp-left span-sp-right"><a class="navbar-brand" href="#">专栏</a></span>
-                    </li>
-                    <li>
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">麻将社区</span>
-                        </button>
-                        <span class="span-sp-left span-sp-right"><a class="navbar-brand" href="#">活动</a></span>
-                    </li>
-                </ul>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">麻将社区</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/index">麻将社区</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a class="navbar-brand" href="#">问答</a></li>
+                    <li><a class="navbar-brand" href="#">专栏</a></li>
+                    <li><a class="navbar-brand" href="#">活动</a></li>
+                </ul>
                 <!--搜索-->
                 <form class="navbar-form navbar-left" action="/search" method="get">
                     <div class="form-group">
@@ -60,21 +36,16 @@
                     <!--提问-->
                     <li th:if="${session.user != null}">
                         <a href="/publish">
-                            <span class="glyphicon glyphicon-question-sign navigation-glyphicon"
-                                  aria-hidden="true"
-                                  data-toggle="tooltip"
-                                  data-placement="left"
-                                  title="提问"></span>
+                            <span class="glyphicon glyphicon-question-sign navigation-glyphicon" aria-hidden="true"
+                                  data-toggle="tooltip" data-placement="left" title="提问"></span>
                         </a>
                     </li>
                     <!--通知-->
                     <li th:if="${session.user != null}">
                         <a href="/profile/replies">
-                                    <span class="glyphicon glyphicon-bell navigation-glyphicon"
-                                          aria-hidden="true"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="通知"></span>
+                            <span class="glyphicon glyphicon-bell navigation-glyphicon"
+                                  aria-hidden="true" data-toggle="tooltip"
+                                  data-placement="bottom" title="通知"></span>
                             <span class="badge" th:text="${session.unreadCount}"></span>
                         </a>
                     </li>
@@ -91,13 +62,13 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="/profile/questions">
+                                <a th:href="${'/people/' + session.user.getName()}">
                                     <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                                     <span>个人主页</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a th:href="@{/account/setting/profile}">
                                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                     <span>设置</span>
                                 </a>

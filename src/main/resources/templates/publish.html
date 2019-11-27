@@ -21,6 +21,7 @@
 <div th:insert="navigation :: nav"></div>
 <div class="container-fluid main">
     <div class="row">
+        <!--问题表单-->
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发起 </h2>
             <hr>
@@ -38,21 +39,22 @@
                     <label for="title">问题补充（必填，请参照右侧提示）：</label>
                     <!--Markdown 编辑器-->
                     <div id="editor" name="mdeditor">
-                        <textarea id="description" name="description" style="display: none" th:text="${description}"></textarea>
+                        <textarea id="description" name="description" style="display: none"
+                                  th:text="${description}"></textarea>
                     </div>
                     <script type="application/javascript">
                         var editorMarkdown;
                         $(function () {
                             editorMarkdown = editormd('editor', {
-                                width  : "100%",
-                                height : 450,
-                                path : '/js/lib/',
-                                delay : 300,
-                                watch : false,
-                                placeholder : '要描述清楚问题哦 欧尼酱(⊙o⊙)...',
-                                imageUpload    : true,
-                                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                                imageUploadURL : "/file/upload"
+                                width: "100%",
+                                height: 450,
+                                path: '/js/lib/',
+                                delay: 300,
+                                watch: false,
+                                placeholder: '要描述清楚问题哦 欧尼酱(⊙o⊙)...',
+                                imageUpload: true,
+                                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                imageUploadURL: "/file/upload"
                             });
                             // editorMarkdown.insertValue($('#description').val());
                         });
@@ -60,26 +62,74 @@
                 </div>
                 <!--标签-->
                 <div id="questionTag" class="form-group">
-                    <label for="tag">添加标签：</label>
+                    <div id="alternative-tag-remind">
+                        <label for="tag">添加标签：</label>
+                        <button id="tag-remind-btn" type="button" th:data-status="1"
+                                class="btn btn-primary"
+                                onclick="alternativeTagStatus();">标签提示
+                        </button>
+                        <span style="float: right">找不到标签？
+                            <button type="button" class="btn btn-info" data-toggle="modal"
+                                    data-target="#create-tag-modal"
+                                    id="create-tag-modal-btn">创建</button>
+                        </span>
+                    </div>
+                    <!--Modal-->
+                    <div class="modal fade" id="create-tag-modal" tabindex="-1" role="dialog"
+                         aria-labelledby="create-tag-modal-Label">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="create-tag-modal-Label">创建新标签</h4>
+                                </div>
+                                <form id="create-tag-form">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="createTagName" class="control-label">标签名:</label>
+                                            <input type="text" class="form-control" id="createTagName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="createTagContent" class="control-label">描述:</label>
+                                            <textarea class="form-control" id="createTagContent"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="createTagType" class="control-label">类型:</label>
+                                            <select class="form-control" id="createTagType">
+                                                <option th:each="selectCatagory : ${tags}"
+                                                        th:text="${selectCatagory.catagoryName}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="reset" class="btn btn-default">重置</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="createTagFormSubmit()">创建</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--标签输入框-->
                     <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以 ， 隔开"
                            th:value="${tag}" autocomplete="off">
-                    <div id="selectTagList" class="span-sp-up">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class=""
-                                th:each="selectCatagory, selectCatagoryStat : ${tags}"
-                                th:class="${selectCatagoryStat.first ? 'active' : ''}">
-                                <a th:href="${'#' + selectCatagory.catagoryName}"
-                                   th:aria-controls="${selectCatagory.catagoryName}" role="tab"
-                                   data-toggle="tab"
-                                   th:text="${selectCatagory.catagoryName}"></a>
-                            </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" th:each="selectCatagory, selectCatagoryStat : ${tags}"
-                                 th:id="${selectCatagory.catagoryName}"
-                                 th:class="${selectCatagoryStat.first ? 'active tab-pane span-sp-up' : 'tab-pane span-sp-up'}">
+                    <div id="alternative-tags" style="display: none">
+                        <div id="selectTagList" class="span-sp-up">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class=""
+                                    th:each="selectCatagory, selectCatagoryStat : ${tags}"
+                                    th:class="${selectCatagoryStat.first ? 'active' : ''}">
+                                    <a th:href="${'#' + selectCatagory.catagoryName}"
+                                       th:aria-controls="${selectCatagory.catagoryName}" role="tab"
+                                       data-toggle="tab"
+                                       th:text="${selectCatagory.catagoryName}"></a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" th:each="selectCatagory, selectCatagoryStat : ${tags}"
+                                     th:id="${selectCatagory.catagoryName}"
+                                     th:class="${selectCatagoryStat.first ? 'active tab-pane span-sp-up' : 'tab-pane span-sp-up'}">
                                 <span class="label label-info span-sp-right span-style"
                                       th:each="selectTag : ${selectCatagory.tags}">
                                     <span class="glyphicon glyphicon-tag"
@@ -87,10 +137,10 @@
                                           th:text="${' ' + selectTag.name}"
                                           onclick="selectTag(this)"></span>
                                 </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <!--提交问题-->
                 <div id="errorAndCommitBtn">
@@ -102,8 +152,9 @@
                 </div>
             </form>
         </div>
+        <!--提问指南-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>问题发起指南</h3>
+            <h3>提问指南</h3>
             • 问题标题: 请用精简的语言描述您发布的问题，不超过25字
             <br>
             • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料：
@@ -137,21 +188,55 @@
                 form.submit();
             },
             errorElement: "em",
-            errorPlacement: function ( error, element ) {
-                // Add the `help-block` class to the error element
-                error.addClass( "help-block" );
-
-                if ( element.prop( "type" ) === "checkbox" ) {
-                    error.insertAfter( element.parent( "label" ) );
+            errorPlacement: function (error, element) {
+                error.addClass("help-block");
+                if (element.prop("type") === "checkbox") {
+                    error.insertAfter(element.parent("label"));
                 } else {
-                    error.insertAfter( element );
+                    error.insertAfter(element);
                 }
             },
-            highlight: function ( element, errorClass, validClass ) {
-                $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents(".col-sm-5").addClass("has-error").removeClass("has-success");
             },
             unhighlight: function (element, errorClass, validClass) {
-                $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+                $(element).parents(".col-sm-5").addClass("has-success").removeClass("has-error");
+            }
+        });
+        $('#create-tag-form').validate({
+            onsubmit: true,
+            onfocusout: true,
+            onkeypress: true,
+            rules: {
+                createTagTitle: "required",
+                createTagType: "required"
+            },
+            messages: {
+                createTagTitle: "标签名呢",
+                createTagType: "类型呢"
+            },
+            submitHandler: function (form) {
+                var tagName = $('#createTagName').val();
+                var tagTypeName = $('#createTagType').val();
+                var tagDescription = $('#createTagContent').text();
+                $.ajax({
+                    type: "POST",
+                    url: "/tag/create",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        tagName: tagName,
+                        tagTypeName: tagTypeName,
+                        tagDescription: tagDescription
+                    }),
+                    success: function (response) {
+                        if (response.code == 200) {
+                            alert("创建成功！！");
+                        } else {
+                            alert("创建失败！服务器繁忙，请稍后再试！抱歉！！");
+                        }
+                    }
+                })
             }
         })
     })

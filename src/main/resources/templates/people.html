@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>People -- v1.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/community.css">
+    <script type="application/javascript" src="/js/jquery.min.js"></script>
+    <script type="application/javascript" src="/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div th:insert="navigation :: nav"></div>
+<div class="container-fluid main">
+    <div class="row">
+        <!--左侧主栏-->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <!--用户-->
+            <div class="media div-height-people-img">
+                <!--用户头像-->
+                <div class="media-left">
+                    <img class="media-object img-rounded img-size-people img-sp-people" th:src="${user.avatarUrl}"
+                         alt="头像">
+                </div>
+                <div class="media-body">
+                    <!--用户昵称-->
+                    <a href="#" class="btn btn-success btn-float btn-sp-up">编辑</a>
+                    <h4 class="media-heading h-sp-up-people">
+                        <span th:text="${user.name}"></span>
+                    </h4>
+                </div>
+            </div>
+            <hr class="hr-sp-up hr-sp-down">
+            <!--属性-->
+            <div>
+                <span class="glyphicon glyphicon-king">威望:<span th:text="0"></span></span>
+                <span class="glyphicon glyphicon-signal span-sp-left">积分:<span th:text="0"></span></span>
+                <span class="glyphicon glyphicon-thumbs-up span-sp-left">赞同:<span th:text="0"></span></span>
+                <span class="glyphicon glyphicon-heart-empty span-sp-left">感谢:<span th:text="0"></span></span>
+            </div>
+            <hr class="hr-sp-up hr-sp-down">
+            <!--分类展示-->
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">概述</a>
+                    </li>
+                    <li role="presentation"><a href="#questions" aria-controls="questions" role="tab" data-toggle="tab">发问</a>
+                    </li>
+                    <li role="presentation"><a href="#answers" aria-controls="answers" role="tab"
+                                               data-toggle="tab">回复</a></li>
+                    <li role="presentation"><a href="#articles" aria-controls="articles" role="tab"
+                                               data-toggle="tab">文章</a></li>
+                    <li role="presentation"><a href="#focus" aria-controls="focus" role="tab" data-toggle="tab">关注</a>
+                    </li>
+                    <li role="presentation"><a href="#actions" aria-controls="actions" role="tab"
+                                               data-toggle="tab">动态</a></li>
+                    <li role="presentation"><a href="#detail" aria-controls="detail" role="tab"
+                                               data-toggle="tab">详细资料</a></li>
+                    <li role="presentation"><a href="#integral" aria-controls="integral" role="tab" data-toggle="tab">我的积分</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="overview">
+                        <!--回复列表-->
+                        <div>
+                            <h3>回复<a href="#" class="btn btn-success btn-float">更多</a></h3>
+                            <div class="media div-height-people-item div-sp-up-people-item"
+                                 th:each="questionAndComment,questionAndCommentStat : ${questAndComm}" th:if="${questionAndCommentStat.index < 4}">
+                                <div class="media-body">
+                                    <h5><a href="#" class="media-heading"
+                                           th:text="${questionAndComment.question.title}"></a></h5>
+                                    <div class="media">
+                                        <span class="media-left glyphicon glyphicon-thumbs-up"></span>
+                                        <p class="media-body span-sp-left line-limit-length"
+                                           th:text="${questionAndComment.comment.content}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="hr-sp-down hr-sp-down">
+                        <!--问题列表-->
+                        <div>
+                            <h3>发问<a href="#" class="btn btn-success btn-float">更多</a></h3>
+                            <div class="media div-height-people-item div-sp-up-people-item"
+                                 th:each="queswithUser,queswithUserStat : ${quesListWithUser}" th:if="${queswithUserStat.index < 4}">
+                                <div class="media-body">
+                                    <h5><a href="#" class="media-heading"
+                                           th:text="${queswithUser.title}"></a></h5>
+                                    <div class="media">
+                                        <span class="media-left glyphicon glyphicon-thumbs-up"></span>
+                                        <span class="media-body span-sp-left line-limit-length">
+                                            <span th:text="${queswithUser.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(queswithUser.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                        <hr class="hr-sp-down hr-sp-down">
+                        <!--动态列表-->
+                        <div>
+                            <h3>动态<a href="#" class="btn btn-success btn-float">更多</a></h3>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="questions">
+                        <div>
+                            <h3>发问</h3>
+                            <div class="media div-height-people-item div-sp-up-people-item"
+                                 th:each="queswithUser,queswithUserStat : ${quesListWithUser}">
+                                <div class="media-body">
+                                    <h5><a href="#" class="media-heading"
+                                           th:text="${queswithUser.title}"></a></h5>
+                                    <div class="media">
+                                        <span class="media-left glyphicon glyphicon-thumbs-up"></span>
+                                        <span class="media-body span-sp-left line-limit-length">
+                                            <span th:text="${queswithUser.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(queswithUser.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="answers">
+                        <div>
+                            <h3>回复</h3>
+                            <div class="media div-height-people-item div-sp-up-people-item"
+                                 th:each="questionAndComment,questionAndCommentStat : ${questAndComm}">
+                                <div class="media-body">
+                                    <h5><a href="#" class="media-heading"
+                                           th:text="${questionAndComment.question.title}"></a></h5>
+                                    <div class="media">
+                                        <span class="media-left glyphicon glyphicon-thumbs-up"></span>
+                                        <p class="media-body span-sp-left line-limit-length"
+                                           th:text="${questionAndComment.comment.content}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="articles">
+                        <div>
+                            <h3>文章</h3>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="focus">...</div>
+                    <div role="tabpanel" class="tab-pane fade" id="actions">
+                        <div>
+                            <h3>最新动态</h3>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="detail">
+                        <div>
+                            <h3>详细资料</h3>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="integral">
+                        <div>
+                            <h3>我的积分</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--右侧副栏-->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div>
+                <!--关注的人-->
+                <div>
+                    <span>关注 <p></p> 人</span>
+                    <span><a href="#">更多</a></span>
+                </div>
+                <hr>
+                <!--被多少人关注-->
+                <div>
+                    <span>被 <p></p> 人关注</span>
+                    <span><a href="#">更多</a></span>
+                </div>
+                <hr>
+                <!--关注的话题-->
+                <div>
+                    <span>关注 <p></p> 话题</span>
+                    <span><a href="#">更多</a></span>
+                </div>
+                <hr>
+                <!--主页访问量-->
+                <div>
+                    <span>主页访问量：<p></p> 次访问</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div th:insert="footer :: footer"></div>
+</body>
+</html>

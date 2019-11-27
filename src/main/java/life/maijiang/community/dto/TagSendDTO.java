@@ -6,5 +6,6 @@ import lombok.Data;
 public class TagSendDTO {
     private String tagName;
     private Long tagType;
+    private String tagTypeName;
     private String tagDescription;
 }

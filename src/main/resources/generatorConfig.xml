@@ -5,14 +5,20 @@
 
 <generatorConfiguration>
 
+    <properties resource="/jdbc.properties"/>
     <context id="DB2Tables" targetRuntime="MyBatis3">
 
 
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql:///homework1"
-                        userId="root"
-                        password="1234">
+<!--        <jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+<!--                        connectionURL="jdbc:mysql:///homework1"-->
+<!--                        userId="root"-->
+<!--                        password="1234">-->
+<!--        </jdbcConnection>-->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.root}"
+                        password="${jdbc.password}">
         </jdbcConnection>
 
         <javaTypeResolver>

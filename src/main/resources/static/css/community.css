@@ -7,6 +7,9 @@ body {
     margin-left: 90px;
     margin-right: 90px;
 }
+.a-float-right {
+    float: right;
+}
 .a-font-color {
     color: red;
 }
@@ -18,6 +21,9 @@ body {
 }
 .alert-comment {
     float: left;
+}
+.btn-float {
+    float: right;
 }
 .btn-publish {
     float: right;
@@ -31,6 +37,12 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
+}
+.btn-sp-up {
+    margin-top: 20px;
+}
+.btn-sp-left {
+    margin-left: 20px;
 }
 .comment-float {
     float: right;
@@ -69,11 +81,23 @@ body {
     font-weight: normal;
     color: #5d5b5b99;
 }
+.div-height-people-img {
+    height: 130px;
+}
+.div-height-people-item {
+    height: 70px;
+}
 .div-sp-up {
     margin-top: 30px;
 }
 .div-sp-down {
     margin-bottom: 30px;
+}
+.div-sp-up-people-item {
+    margin-top: 0;
+}
+.div-sp-down-people-item {
+    margin-bottom: 0;
 }
 .div-sp-left {
     margin-left: 20px;
@@ -107,6 +131,9 @@ body {
 .hr-sp-down {
     margin-bottom: 10px;
 }
+.h-sp-up-people {
+    margin-top: 50px;
+}
 .img-size {
     width: 64px;
     height: 64px;
@@ -114,6 +141,14 @@ body {
 .img-size-head {
     width: 40px;
     height: 40px;
+}
+.img-size-people {
+    width: 120px;
+    height: 120px;
+}
+.img-sp-people {
+    margin-top: 20px;
+    margin-left: 10px;
 }
 .input-width-long {
     width: 300px;
@@ -123,6 +158,12 @@ body {
 }
 .line-limit-length {
     max-width: 800px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.line-limit-len-people {
+    max-width: 500px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -145,10 +186,10 @@ body {
     padding-left: 0;
 }
 .span-sp-left {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 .span-sp-right {
-    margin-right: 10px;
+    margin-right: 20px;
 }
 .span-sp-up {
     margin-top: 10px;

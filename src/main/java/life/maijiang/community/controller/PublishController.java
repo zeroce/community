@@ -1,23 +1,23 @@
 package life.maijiang.community.controller;
 
-import life.maijiang.community.cache.TagCache;
 import life.maijiang.community.dto.QuestionDTO;
 import life.maijiang.community.dto.TagDTO;
 import life.maijiang.community.model.Question;
 import life.maijiang.community.model.Tag;
-import life.maijiang.community.model.TagField;
 import life.maijiang.community.model.User;
+import life.maijiang.community.service.PublishService;
 import life.maijiang.community.service.QuestionService;
-import life.maijiang.community.service.TagFieldService;
 import life.maijiang.community.service.TagService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,22 +27,14 @@ public class PublishController {
     private QuestionService questionService;
 
     @Autowired
-    private TagService tagService;
+    private PublishService publishService;
 
     @Autowired
-    private TagFieldService tagFieldService;
+    private TagService tagService;
 
     @GetMapping("/publish")
     public String publish(Model model) {
-        List<TagDTO<Tag>> tagDTOS = new ArrayList<>();
-        List<TagField> tagFieldList = tagFieldService.getAllList();
-        for (TagField tagField : tagFieldList) {
-            List<Tag> tagList = tagService.getListByType(tagField.getId());
-            TagDTO<Tag> tagDTO = new TagDTO<>();
-            tagDTO.setCatagoryName(tagField.getName());
-            tagDTO.setTags(tagList);
-            tagDTOS.add(tagDTO);
-        }
+        List<TagDTO<Tag>> tagDTOS = publishService.getAllTags();
         model.addAttribute("tags", tagDTOS);
         return "publish";
     }
@@ -64,7 +56,7 @@ public class PublishController {
             model.addAttribute("error", "问题补充不能为空");
             return "publish";
         }
-        String isValid = TagCache.FilterIsValid(tag);
+        String isValid = tagService.filterIsValid(tag);
         if (StringUtils.isNotBlank(isValid)) {
             model.addAttribute("error", "输入非法标签" + isValid);
             return "publish";
@@ -89,11 +81,12 @@ public class PublishController {
     public String edit(@PathVariable(name = "id") Long id,
                        Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
+        List<TagDTO<Tag>> tagDTOList = publishService.getAllTags();
         model.addAttribute("title", questionDTO.getTitle());
         model.addAttribute("description", questionDTO.getDescription());
         model.addAttribute("tag", questionDTO.getTag());
         model.addAttribute("id", questionDTO.getId());
-        model.addAttribute("tags", TagCache.get());
+        model.addAttribute("tags", tagDTOList);
         return "publish";
     }
 }

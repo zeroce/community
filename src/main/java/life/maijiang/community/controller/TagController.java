@@ -16,15 +16,13 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-    @PostMapping("/tag/create")
     @ResponseBody
+    @RequestMapping(value = "/tag/create", method = RequestMethod.POST)
     public Object add(@RequestBody TagSendDTO tagSendDTO) {
-        Tag tag = new Tag();
-        tag.setName(tagSendDTO.getTagName());
-        tag.setType(tagSendDTO.getTagType());
-        tag.setGmtCreate(System.currentTimeMillis());
-        tag.setGmtModified(tag.getGmtCreate());
-        tagService.createOrUpdate(tag);
+        if (tagSendDTO.getTagName().equals("")) {
+            return ResultDTO.failOf("标题不能为空！请重新尝试并规范创建！");
+        }
+        tagService.createOrUpdate(tagSendDTO);
         return ResultDTO.okOf();
     }
 

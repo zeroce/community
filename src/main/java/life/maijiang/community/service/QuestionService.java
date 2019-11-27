@@ -157,6 +157,16 @@ public class QuestionService {
 
         return paginationDTO;
     }
+
+    /**
+     * 问题的基本信息
+     * @param id
+     * @return
+     */
+    public Question findById(Long id) {
+        return questionMapper.selectByPrimaryKey(id);
+    }
+
     /**
      * 问题详情
      * @param id
@@ -232,6 +242,12 @@ public class QuestionService {
             return questionDTO;
         }).collect(Collectors.toList());
         return questionDTOs;
+    }
+
+    public List<Question> selectByCreatorAccount(String creatorAccount) {
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorAccountEqualTo(creatorAccount);
+        return questionMapper.selectByExample(example);
     }
 
 }

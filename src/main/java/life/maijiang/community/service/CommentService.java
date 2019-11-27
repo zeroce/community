@@ -128,4 +128,16 @@ public class CommentService {
 
         return commentDTOS;
     }
+
+    /**
+     * 个人回复收集（问题）
+     * @param commentator
+     * @return
+     */
+    public List<Comment> listByCommentator(String commentator, Integer type) {
+        CommentExample example = new CommentExample();
+        example.createCriteria().andCommentatorEqualTo(commentator).andTypeEqualTo(type);
+        List<Comment> commentList = commentMapper.selectByExample(example);
+        return commentList;
+    }
 }
