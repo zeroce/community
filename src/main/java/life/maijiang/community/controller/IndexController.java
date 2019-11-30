@@ -1,8 +1,9 @@
 package life.maijiang.community.controller;
 
-import life.maijiang.community.cache.HotTagCache;
+import life.maijiang.community.provider.HotTagsProvider;
 import life.maijiang.community.dto.PaginationDTO;
 import life.maijiang.community.service.QuestionService;
+import life.maijiang.community.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ public class IndexController {
     private QuestionService questionService;
 
     @Autowired
-    private HotTagCache hotTagCache;
+    private HotTagsProvider hotTagsProvider;
 
     @GetMapping("/index")
     public String index(Model model,
@@ -27,7 +28,7 @@ public class IndexController {
                         @RequestParam(name = "sortedBy", required = false) String sortedBy) {
 
         PaginationDTO pagination = questionService.listBySorted(page, size, sortedBy);
-        List<String> hotTagCacheHots = hotTagCache.getHots();
+        List<String> hotTagCacheHots = hotTagsProvider.getHots();
         model.addAttribute("pagination", pagination);
         model.addAttribute("hotTags", hotTagCacheHots);
         model.addAttribute("sortedBy", sortedBy);

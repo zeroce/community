@@ -1,4 +1,4 @@
-package life.maijiang.community.cache;
+package life.maijiang.community.provider;
 
 import life.maijiang.community.dto.HotTagDTO;
 import lombok.Data;
@@ -8,11 +8,11 @@ import java.util.*;
 
 @Component
 @Data
-public class HotTagCache {
+public class HotTagsProvider {
     private List<String> hots = new ArrayList<>();
 
     // 优先队列获得 TOP N
-    public void updateTags(Map<String, Integer> tags) {
+    public void updateHotTags(Map<String, Integer> tags) {
         // 优先队列的大小
         int max = 5;
         // 优先队列

@@ -1,9 +1,10 @@
 package life.maijiang.community.schedule;
 
-import life.maijiang.community.cache.HotTagCache;
+import life.maijiang.community.provider.HotTagsProvider;
 import life.maijiang.community.mapper.QuestionMapper;
 import life.maijiang.community.model.Question;
 import life.maijiang.community.model.QuestionExample;
+import life.maijiang.community.service.TagService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
@@ -21,7 +22,10 @@ public class HotTagTasks {
     private QuestionMapper questionMapper;
 
     @Autowired
-    private HotTagCache hotTagCache;
+    private TagService tagService;
+
+    @Autowired
+    private HotTagsProvider hotTagsProvider;
 
     @Scheduled(fixedRate = 20000)
     public void hotTagSchedule() {
@@ -33,7 +37,6 @@ public class HotTagTasks {
             QuestionExample example = new QuestionExample();
             list = questionMapper.selectByExampleWithBLOBsWithRowbounds(example, new RowBounds(offset, limit));
             for (Question question : list) {
-
                 String tag = question.getTag();
                 String[] tags = StringUtils.split(tag, ",");
                 for (String s : tags) {
@@ -47,7 +50,6 @@ public class HotTagTasks {
             }
             offset += limit;
         }
-
-        hotTagCache.updateTags(prioritiesTag);
+        hotTagsProvider.updateHotTags(prioritiesTag);
     }
 }

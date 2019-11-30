@@ -178,4 +178,19 @@ Editormd 编辑器的文档还是挺容易读的。
 ### 引入 Spring Boot 定时器 -- 1 -- 热门话题
 
 ### 首页标签分类查询
-分别有5种查询：最新、最热、一周热点、月度热点、零回复的所有帖子。在查询的过程增加筛选条件和排序条件。
+分别有5种查询：最新、最热、一周热点、月度热点、零回复的所有帖子。在查询的过程增加筛选条件和排序条件。  
+
+### 接口编程
+将 Service 的接口独立出来，用接口。  
+
+### 缓存问题 -- 1 -- 引入 Redis 
+项目使用的 Spring Boot 版本是 2.1.8，这个版本要引入 Redis 只需要引入 redis 的 starter 就行。    
+
+- 在 `application.yml` 中配置 redis 的属性，这些属性会在编译时转换为 RedisProperties 的属性。  
+- 2.x 版本后 Spring Boot 的 Redis 的 starter 引入了不同的客户端，因此在 yml 文件中需要指定配置连接池的类型。（客户端默认是 lettuce)  
+- 在 config 包中新建 RedisConfig 类，做一些基本的配置。  
+- 在 service 包中新建 RedisService 接口，写入一些常用的方法。  
+- 新建一个 utils 包，写一个 RedisKeyUtil 工具类。  
+
+关于注解的使用（`@Cacheable， @CachePut， @CacheEvict`） 现在还没用，等后面会开始使用的。  
+引入 Redis 主要是为了方便 点赞功能，如果要反复点赞的话，就少一点数据库操作。  
