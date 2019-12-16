@@ -1,5 +1,6 @@
-package life.maijiang.community.interceptor;
+package life.maijiang.community.config;
 
+import life.maijiang.community.interceptor.SessionInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

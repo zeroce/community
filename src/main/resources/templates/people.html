@@ -64,6 +64,7 @@
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
+                    <!--概述标签页-->
                     <div role="tabpanel" class="tab-pane fade in active" id="overview">
                         <!--回复列表-->
                         <div>
@@ -79,6 +80,9 @@
                                            th:text="${questionAndComment.comment.content}"></p>
                                     </div>
                                 </div>
+                            </div>
+                            <div th:if="${questAndComm == null}">
+                                <div>没有内容</div>
                             </div>
                         </div>
                         <hr class="hr-sp-down hr-sp-down">
@@ -106,6 +110,7 @@
                             <h3>动态<a href="#" class="btn btn-success btn-float">更多</a></h3>
                         </div>
                     </div>
+                    <!--问题标签页-->
                     <div role="tabpanel" class="tab-pane fade" id="questions">
                         <div>
                             <h3>发问</h3>
@@ -121,10 +126,12 @@
                                         </span>
                                     </div>
                                 </div>
+                                <a href="#" class="a-float-right">删除问题</a>
                                 <hr>
                             </div>
                         </div>
                     </div>
+                    <!--回复标签页-->
                     <div role="tabpanel" class="tab-pane fade" id="answers">
                         <div>
                             <h3>回复</h3>
@@ -139,25 +146,34 @@
                                            th:text="${questionAndComment.comment.content}"></p>
                                     </div>
                                 </div>
+                                <a href="#" class="a-float-right">删除回复</a>
                             </div>
                         </div>
                     </div>
+                    <!--文章标签页-->
                     <div role="tabpanel" class="tab-pane fade" id="articles">
                         <div>
                             <h3>文章</h3>
+                            <div th:if="${questAndComm == null}">
+                                <p class="text-center">没有内容</p>
+                            </div>
                         </div>
                     </div>
+                    <!--关注标签页-->
                     <div role="tabpanel" class="tab-pane fade" id="focus">...</div>
+                    <!--动态标签页-->
                     <div role="tabpanel" class="tab-pane fade" id="actions">
                         <div>
                             <h3>最新动态</h3>
                         </div>
                     </div>
+                    <!--详细资料标签页-->
                     <div role="tabpanel" class="tab-pane fade" id="detail">
                         <div>
                             <h3>详细资料</h3>
                         </div>
                     </div>
+                    <!--我的积分-->
                     <div role="tabpanel" class="tab-pane fade" id="integral">
                         <div>
                             <h3>我的积分</h3>

@@ -202,6 +202,9 @@ body {
     margin: 5px 5px;
     display: inline-block;
 }
+.span-font-size {
+    font-size: 30px;
+}
 .sub-comments {
     border-radius: 5px;
     margin-top: 10px;
@@ -212,8 +215,14 @@ body {
     background-color: rgb(112, 188, 255);
     color: rgb(234, 231, 225) !important;
 }
+.text-center {
+    text-align: center;
+}
 .text-desc {
     font-size: 12px;
     font-weight: normal;
     color: #999;
+}
+.ul-align {
+    float: right;
 }

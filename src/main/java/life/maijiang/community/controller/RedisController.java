@@ -1,6 +1,5 @@
 package life.maijiang.community.controller;
 
-import life.maijiang.community.dto.RedisTestUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,5 @@ public class RedisController {
 
     @PutMapping("/put")
     public void put(String username, String nickname) {
-        RedisTestUser user = new RedisTestUser(username, nickname);
-        redisTemplate.opsForValue().set(username, user);
     }
 }

@@ -47,7 +47,6 @@ public class UCloudProvider {
         }
         try {
             ObjectAuthorization objectAuthorization = new UfileObjectLocalAuthorization(publicKey, privateKey);
-
             // 对象操作需要ObjectConfig来配置地区和域名后缀
             ObjectConfig config = new ObjectConfig(region, suffix);
 
@@ -73,6 +72,5 @@ public class UCloudProvider {
             e.printStackTrace();
             throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
         }
-
     }
 }

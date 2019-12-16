@@ -212,7 +212,6 @@ public class QuestionServiceImpl implements QuestionService {
             if (update != 1){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
-
         }
     }
 
