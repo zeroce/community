@@ -1,0 +1,72 @@
+github:
+  client:
+    id:
+    secret:
+  redirect:
+    uri: http://localhost:8887/callback
+logging:
+  file: ./logs/community.log
+  file.max-history: 30
+  file.max-size: 50MB
+  level:
+    root: info
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: life.maijiang.community.model
+server:
+  port: 8887
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: 
+    url: 
+    username: 
+  thymeleaf:
+    cache: false
+    mode: HTML
+    prefix: classpath:/templates/
+    servlet:
+      content-type: text/html
+    suffix: .html
+  redis:
+    # Redis 服务器地址
+    host: 127.0.0.1
+    # Redis 服务器连接端口
+    port: 6379
+    # Redis 服务器连接密码
+    password:
+    # 连接超时时间（ms)
+    timeout: 300
+    # Spring Boot 2.0 以后默认使用的客户端
+    jedis:
+      pool:
+        # 连接池最大连接数（<0没有限制）
+        max-active: 8
+        # 连接池最大阻塞等待时间（<0没有限制）
+        max-wait: -1ms
+        # 连接池中最大空闲链接
+        max-idle: 0
+        # 连接池中最小空闲链接
+        min-idle: 8
+    lettuce:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-wait: -1ms
+        max-active: 8
+      shutdown-timeout: 100ms
+    # Redis 数据库索引（默认为0）
+    database: 0
+
+
+ucloud:
+  ufile:
+    bucket-name:
+    expiresDuration: 315360000
+    private-key:
+    public-key:
+    region:
+    suffix: ufileos.compo
